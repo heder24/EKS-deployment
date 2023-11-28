@@ -63,7 +63,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: "/home/cyber/repos/eks-project/my-project"
+        working-directory: "./"
 
     steps:
     # Checkout the repository to the GitHub Actions runner
