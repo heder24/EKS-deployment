@@ -18,7 +18,7 @@ data "aws_caller_identity" "current" {}
 ################################################################################
 
 
-  module "eks" {
+module "eks" {
   source  = "app.terraform.io/heder24/eks/aws"
   version = "1.0.0"
 
@@ -41,15 +41,15 @@ data "aws_caller_identity" "current" {}
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
 
- # aws-auth configmap
+  # aws-auth configmap
   manage_aws_auth_configmap = true
-    aws_auth_users = [
+  aws_auth_users = [
     {
       userarn  = var.userarn
       username = var.username
       groups   = ["system:masters"]
     },
- 
+
   ]
 
 
@@ -59,7 +59,7 @@ data "aws_caller_identity" "current" {}
     instance_types = ["t2.micro"]
 
     attach_cluster_primary_security_group = true
-    
+
   }
 
   eks_managed_node_groups = {
@@ -70,13 +70,13 @@ data "aws_caller_identity" "current" {}
 
       instance_types = ["t2.micro"]
       capacity_type  = "ON_DEMAND"
-         tags = {
+      tags = {
         ExtraTag = "prod-cluster"
       }
     }
   }
-     
-    }
+
+}
 
 
 #   aws_auth_users = [
@@ -317,5 +317,5 @@ module "alb" {
 #   repository = "/home/cyber/repos/eks-project/helm/knote"
 #   chart      = "knote"
 
-  
+
 # }
