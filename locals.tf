@@ -5,7 +5,7 @@ locals {
   vpc_cidr = "10.70.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
-  
+
   cluster_name = "my-app-cluster"
   # domain_name = "hederdevops.com"
   user_data                 = <<-EOT
