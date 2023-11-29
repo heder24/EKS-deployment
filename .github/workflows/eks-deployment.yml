@@ -223,9 +223,9 @@ jobs:
       with:
         kubeconfig: '${{ secrets.KUBECONFIG }}'
 
-    - name: Run K8s
-      run: |-
-        kubectl cluster-info
+    # - name: Run K8s
+    #   run: |-
+    #     kubectl cluster-info
       
     - name: Set imagePullSecret
       uses: azure/k8s-create-secret@v4
