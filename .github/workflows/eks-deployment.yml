@@ -216,8 +216,7 @@ jobs:
       
     - name:  update kubeconfig
       run : |
-        aws eks --region $(terraform output -raw region) update-kubeconfig \ --name $(terraform output -raw cluster_name)
-
+         aws eks update-kubeconfig --region us-east-2 --name prod
     - name: Set imagePullSecret
       uses: azure/k8s-create-secret@v4
       with:
