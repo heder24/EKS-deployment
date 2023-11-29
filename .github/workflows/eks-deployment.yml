@@ -210,7 +210,7 @@ jobs:
     - name:  update kubeconfig
       run : aws eks update-kubeconfig --name prod
 
-    -name: Deploy to EKS
+    - name: Deploy to EKS
       run: | 
         kubectl apply -f knote.yml
         kubectl apply -f minio.yml
