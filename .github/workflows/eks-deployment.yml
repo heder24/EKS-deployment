@@ -184,7 +184,7 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: false
+        destroy: true
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform destroy -auto-approve -input=true
@@ -215,7 +215,7 @@ jobs:
   #       docker pull ${{env.DOCKER_USER}}/${{env.DOCKER_REPOSITORY}}:${{env.NODE_IMAGE_TAG}}
       
     - name:  update kubeconfig
-      run : aws eks update-kubeconfig --name prod
+      run : aws eks update-kubeconfig -region us-east-2 --name prod
 
     - name: Deploy to EKS
       run: | 
