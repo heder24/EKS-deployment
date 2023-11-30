@@ -229,7 +229,8 @@ jobs:
       
     - name: Set imagePullSecret
       run: |
-        kubectl create secret docker-registry regcred --docker-username: ${{secrets.DOCKER_HUB_USER}} --docker-password: ${{ secrets.REGISTRY_PASSWORD }} --docker-email: ${{ secrets.EMAIL }} --docker-server: ${{ secrets.REGISTRY_SERVER}} 
+        
+        kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=heder24 --docker-password=Imth@re@ld@de --docker-email=hederredon@gmail.com
         
 
     - name:  update kubeconfig
