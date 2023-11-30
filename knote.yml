@@ -29,8 +29,8 @@ spec:
           image: heder24/my-app:knote
           ports:
             - containerPort: 3000
-      imagePullSecrets:
-        - name: regcred
+      # imagePullSecrets:
+      #   - name: regcred
 
           env:
             - name: MONGO_URL

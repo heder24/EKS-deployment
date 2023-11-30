@@ -44,12 +44,12 @@
 
 name: 'Terraform'
 
-# name: Pull image from Docker Hub
-# env:
-#   DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
-#   DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
-#   DOCKER_REPOSITORY: my-app
-#   NODE_IMAGE_TAG: knote
+name: Pull image from Docker Hub
+env:
+  DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
+  DOCKER_REPOSITORY: my-app
+  NODE_IMAGE_TAG: knote
 
 
 on:
@@ -209,10 +209,10 @@ jobs:
     #     token: ${{ secrets.GITHUB_TOKEN }} # only needed if version is 'latest'
     #   id: install
 
-  #  - name: Pull Image from Docker Hub    
-  #     run: |
-  #       docker login -u ${{env.DOCKER_USER}} -p ${{env.DOCKER_PASSWORD}}
-  #       docker pull ${{env.DOCKER_USER}}/${{env.DOCKER_REPOSITORY}}:${{env.NODE_IMAGE_TAG}}
+   - name: Pull Image from Docker Hub    
+      run: |
+        docker login -u ${{env.DOCKER_USER}} -p ${{env.DOCKER_PASSWORD}}
+        docker pull ${{env.DOCKER_USER}}/${{env.DOCKER_REPOSITORY}}:${{env.NODE_IMAGE_TAG}}
       
     # - name:  update kubeconfig
     #   run : |
