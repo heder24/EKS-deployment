@@ -2,8 +2,8 @@ name: Deploy app to k8s
 env:
   DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
-  DOCKER_REPOSITORY: class-docker-app
-  NODE_IMAGE_TAG: nodejs-app-v1
+  DOCKER_REPOSITORY: my-app
+  NODE_IMAGE_TAG: knote
 
 on:
   push:
