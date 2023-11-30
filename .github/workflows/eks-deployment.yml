@@ -214,34 +214,34 @@ jobs:
   #       docker login -u ${{env.DOCKER_USER}} -p ${{env.DOCKER_PASSWORD}}
   #       docker pull ${{env.DOCKER_USER}}/${{env.DOCKER_REPOSITORY}}:${{env.NODE_IMAGE_TAG}}
       
-    # - name:  update kubeconfig
-    #   run : |
-    #      aws eks update-kubeconfig --region us-east-2 --name prod
+    - name:  update kubeconfig
+      run : |
+         aws eks update-kubeconfig --region us-east-2 --name prod
 
-    # - name: Set K8s context
-    #   uses: ossrs/k8s-set-context-action@v1
-    #   with:
-    #     kubeconfig: '${{ secrets.KUBECONFIG }}'
+    - name: Set K8s context
+      uses: ossrs/k8s-set-context-action@v1
+      with:
+        kubeconfig: '${{ secrets.KUBECONFIG }}'
 
-    # # - name: Run K8s
-    # #   run: |-
-    # #     kubectl cluster-info
+    # - name: Run K8s
+    #   run: |-
+    #     kubectl cluster-info
       
-    # - name: Set imagePullSecret
-    #   uses: azure/k8s-create-secret@v4
-    #   with:
-    #     secret-name: 'regcred'
-    #     container-registry-url: 'https://index.docker.io/v1/'
-    #     container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
-    #     container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-    #   id: create-secret
-    #     # aws eks update-kubeconfig --region us-east-2 --name prod
+    - name: Set imagePullSecret
+      uses: azure/k8s-create-secret@v4
+      with:
+        secret-name: 'regcred'
+        container-registry-url: 'https://index.docker.io/v1/'
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+      id: create-secret
+        # aws eks update-kubeconfig --region us-east-2 --name prod
 
-    # - name: Deploy to EKS
-    #   run: | 
-    #     kubectl apply -f knote.yml
-    #     kubectl apply -f minio.yml
-    #     kubectl apply -f mongo.yml
+    - name: Deploy to EKS
+      run: | 
+        kubectl apply -f knote.yml
+        kubectl apply -f minio.yml
+        kubectl apply -f mongo.yml
 
 
 
