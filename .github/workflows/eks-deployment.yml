@@ -231,10 +231,10 @@ jobs:
       run: |
       
         kubectl create secret docker-registry regcred \
-        --docker-username: ${{secrets.DOCKER_HUB_USER}}\
-        --docker-password: ${{ secrets.REGISTRY_PASSWORD }} \
-        --docker-email: ${{ secrets.EMAIL }} \
-        --docker-server: ${{ secrets.REGISTRY_SERVER}}
+        docker-username: ${{secrets.DOCKER_HUB_USER}}\
+        docker-password: ${{ secrets.REGISTRY_PASSWORD }} \
+        docker-email: ${{ secrets.EMAIL }} \
+        docker-server: ${{ secrets.REGISTRY_SERVER}}
         
 
     - name:  update kubeconfig
