@@ -1,4 +1,4 @@
-name: Build and Deploy to Docker Hub
+name: Deploy app to k8s
 env:
   DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
@@ -15,7 +15,7 @@ permissions:
   
 jobs:
   
-  deploy app:
+  deploy-app:
     
     name: Build and Scan Docker Images
     runs-on: ubuntu-latest
