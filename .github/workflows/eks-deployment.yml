@@ -75,77 +75,77 @@ jobs:
 
     steps:
     # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      id: init
-      run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # - name: Terraform Format
     #   run: terraform fmt -check
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -input=false -no-color
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -input=false -no-color
 
    # Add a comment to pull requests with plan results
-    - name: add-plan-comment
-      id: comment
-      uses: actions/github-script@v3
-      if: github.event_name == 'pull_request'
-      env:
-        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-          #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
-          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-      
-          <details><summary>Show Plan</summary>
-          
-          \`\`\`${process.env.PLAN}\`\`\`
-          
-          </details>
-          
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+      - name: add-plan-comment
+        id: comment
+        uses: actions/github-script@v3
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+        
+            <details><summary>Show Plan</summary>
             
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
+            \`\`\`${process.env.PLAN}\`\`\`
+            
+            </details>
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
 
     # Scan Terraform Config for Vulnerabilities
 
-    - name: Run Snyk to check configuration files for security issues
-      # Snyk can be used to break the build when it detects security issues.
-      # In this case we want to upload the issues to GitHub Code Scanning
-      continue-on-error: true
-      uses: snyk/actions/iac@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: --sarif-file-output=snyk.scan
-        sarif: false
-    - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: snyk.scan
+      - name: Run Snyk to check configuration files for security issues
+        # Snyk can be used to break the build when it detects security issues.
+        # In this case we want to upload the issues to GitHub Code Scanning
+        continue-on-error: true
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.scan
+          sarif: false
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.scan
 
-  
+    
     # - name: Run Trivy vulnerability scanner in IaC mode
     #   uses: aquasecurity/trivy-action@master
     #   with:
@@ -175,32 +175,32 @@ jobs:
 
     #On push to "main", build or change infrastructure according to Terraform configuration files
     #Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      env:
-        apply: true
-      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' d
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      - name: Terraform Apply
+        env:
+          apply: true
+        #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' d
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
 
-    - name: Terraform Destroy
-      env:
-        destroy: false
-      if: ${{ env.destroy == 'true' }} 
-      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform destroy -auto-approve -input=true
+      - name: Terraform Destroy
+        env:
+          destroy: false
+        if: ${{ env.destroy == 'true' }} 
+        #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=true
 
-    - name: install kubectl
-      uses: azure/setup-kubectl@v3
-      with:
-        version: 'latest' # default is latest stable
-      id: install
+      - name: install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest' # default is latest stable
+        id: install
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
 
     # - name: install helm 
     #   uses: azure/setup-helm@v3
@@ -233,15 +233,15 @@ jobs:
     #     kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=heder24 --docker-password=Imth@re@ld@de --docker-email=hederredon@gmail.com
         
 
-    - name:  update kubeconfig
-      run : |
-         aws eks update-kubeconfig --region us-east-2 --name prod
+      - name:  update kubeconfig
+        run : |
+          aws eks update-kubeconfig --region us-east-2 --name prod
 
-    - name: Deploy to EKS
-      run: | 
-        kubectl apply -f knote.yml
-        kubectl apply -f minio.yml
-        kubectl apply -f mongo.yml
+      - name: Deploy to EKS
+        run: | 
+          kubectl apply -f knote.yml
+          kubectl apply -f minio.yml
+          kubectl apply -f mongo.yml
 
 
 
