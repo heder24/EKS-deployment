@@ -209,7 +209,7 @@ jobs:
     #     token: ${{ secrets.GITHUB_TOKEN }} # only needed if version is 'latest'
     #   id: install
 
-   - name: Pull Image from Docker Hub    
+    - name: Pull Image from Docker Hub    
       run: |
         docker login -u ${{env.DOCKER_USER}} -p ${{env.DOCKER_PASSWORD}}
         docker pull ${{env.DOCKER_USER}}/${{env.DOCKER_REPOSITORY}}:${{env.NODE_IMAGE_TAG}}
