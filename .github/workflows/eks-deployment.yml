@@ -45,11 +45,11 @@
 name: 'Terraform'
 
 name: Pull image from Docker Hub
-env:
-DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
-DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
-DOCKER_REPOSITORY: my-app
-NODE_IMAGE_TAG: knote
+  env:
+  DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
+  DOCKER_REPOSITORY: my-app
+  NODE_IMAGE_TAG: knote
 
 
 on:
