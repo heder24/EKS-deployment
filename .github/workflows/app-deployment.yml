@@ -17,7 +17,7 @@ jobs:
   
   deploy-app:
     
-    name: Build and Scan Docker Images
+    name: Install kubectl and deploy app
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
