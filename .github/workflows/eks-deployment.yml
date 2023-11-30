@@ -228,14 +228,14 @@ jobs:
     #     kubectl cluster-info
       
     - name: Set imagePullSecret
-      uses: azure/k8s-create-secret@v4
-      with:
-        secret-name: 'regcred'
-        container-registry-url: 'https://heder24.hub.docker.com/'
-        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
-        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-      id: create-secret
-        # aws eks update-kubeconfig --region us-east-2 --name prod
+      run: |
+      
+        kubectl create secret docker-registry regcred \
+        --docker-username: ${{secrets.DOCKER_HUB_USER}}\
+        --docker-password: ${{ secrets.REGISTRY_PASSWORD }} \
+        --docker-email: ${{ secrets.EMAIL }} \
+        --docker-server: ${{ secrets.REGISTRY_SERVER}}
+        
 
     - name:  update kubeconfig
       run : |
