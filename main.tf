@@ -65,11 +65,11 @@ module "eks" {
 
   eks_managed_node_groups = {
     prod = {
-      min_size     = 4
+      min_size     = 2
       max_size     = 10
-      desired_size = 4
+      desired_size = 2
 
-      instance_types = ["t2.micro"]
+      instance_types = ["t3.large"]
       capacity_type  = "ON_DEMAND"
       tags = {
         ExtraTag = "prod-cluster"
