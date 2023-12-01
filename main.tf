@@ -102,9 +102,9 @@ module "csi" {
   source  = "app.terraform.io/heder24/csi/aws"
   version = "1.0.0"
   # aws_profile      = "bigdata-labs"
-  aws_region       = "us-east-2"
-  eks_cluster_name = "prod"
-  
+  # aws_region       = "us-east-2"
+  # eks_cluster_name = "prod"
+
   }
 
 ###############################################################################
