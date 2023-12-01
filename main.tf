@@ -102,8 +102,8 @@ module "csi" {
   source  = "app.terraform.io/heder24/csi/aws"
   version = "1.0.0"
   # aws_profile      = "bigdata-labs"
-  aws_region       = local.region
-  eks_cluster_name = local.cluster_name
+  aws_region       = var.region
+  eks_cluster_name = var.cluster_name
   }
 
 ###############################################################################

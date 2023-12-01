@@ -102,3 +102,14 @@ variable "log_destination_arns" {
   description = "The Amazon Kinesis Data Firehose, Cloudwatch Log log group, or S3 bucket Amazon Resource Names (ARNs) that you want to associate with the web ACL."
   default     = []
 }
+
+
+variable "region" {
+  type    = string
+  default = "us-east-2"
+}
+
+variable "cluster_name" {
+  type    = string
+  default = "prod"
+}
