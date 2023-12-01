@@ -6,7 +6,7 @@ locals {
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
 
-  cluster_name = "my-app-cluster"
+  cluster_name = "prod"
   # domain_name = "hederdevops.com"
   user_data                 = <<-EOT
     #!/bin/bash
