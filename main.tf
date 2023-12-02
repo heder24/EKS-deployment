@@ -88,13 +88,6 @@ module "eks" {
   }
 }
 
-module "csi" {
-  source  = "app.terraform.io/heder24/csi/aws"
-  version = "1.0.0"
-   
-  aws_region       = var.region
-  eks_cluster_name = var.cluster_name
-}
 
 #   aws_auth_users = [
 #     {
