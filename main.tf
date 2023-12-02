@@ -72,6 +72,10 @@ module "eks" {
     } 
   }
 
+  node_security_group_tags = {
+    "kubernetes.io/cluster/${local.name}" = null
+  }
+
   eks_managed_node_groups = {
     prod = {
       min_size     = 2
