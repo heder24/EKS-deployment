@@ -42,6 +42,12 @@ module "eks" {
       most_recent = true
     }
   }
+
+ iam_role_additional_policies = {
+    additional =  { AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" }
+  }
+
+
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
@@ -80,11 +86,7 @@ module "eks" {
       }
     }
   }
-
 }
-###################
-# csi
-####################
 
 module "csi" {
   source  = "app.terraform.io/heder24/csi/aws"
