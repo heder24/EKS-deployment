@@ -43,10 +43,6 @@ module "eks" {
     }
   }
 
- iam_role_additional_policies = {
-    { AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" } = aws_iam_policy.AmazonEBSCSIDriverPolic.arn}
-
-
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
@@ -70,6 +66,10 @@ module "eks" {
 
     attach_cluster_primary_security_group = true
 
+    # Needed by the aws-ebs-csi-driver 
+    iam_role_additional_policies = { 
+        AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" 
+    } 
   }
 
   eks_managed_node_groups = {
