@@ -113,3 +113,33 @@ variable "cluster_name" {
   type    = string
   default = "prod"
 }
+variable "domain_name" {
+  type    = string
+  default = "hederdevops.com"
+}
+variable "prod_domain_name" {
+  type    = string
+  default = "www.hederdevops.com"
+}
+
+variable "stage_domain_name" {
+  type    = string
+  default = "www.stage.hederdevops.com"
+}
+variable "host_header_stage_domain_name" {
+  type    = string
+  default = "stage.hederdevops.com"
+}
+variable "qa_domain_name" {
+  type    = string
+  default = "www.qa.hederdevops.com"
+}
+variable "host_header_qa_domain_name" {
+  type    = string
+  default = "qa.hederdevops.com"
+}
+
+variable "all_domain_name" {
+  type    = string
+  default = "*hederdevops.com"
+}
