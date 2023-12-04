@@ -812,7 +812,7 @@ output "acm" {
   value       = module.acm.acm_certificate_arn
 }
 
-output "target_group_arns"{
+output "target_group_arns" {
   description = "acm arn"
   value       = module.alb.target_group_arns
 

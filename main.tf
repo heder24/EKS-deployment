@@ -51,6 +51,21 @@ module "eks" {
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
 
+
+###############################################################
+# SG to webhook of AWS load balancer 
+###############################################################
+node_security_group_additional_rules = {
+  ingress_allow_access_from_control_plane = {
+    type                          = "ingress"
+    protocol                      = "tcp"
+    from_port                     = 9443
+    to_port                       = 9443
+    source_cluster_security_group = true
+    description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+  }
+}
+
   # aws-auth configmap
   manage_aws_auth_configmap = true
   aws_auth_users = [
@@ -71,9 +86,9 @@ module "eks" {
     attach_cluster_primary_security_group = true
 
     # Needed by the aws-ebs-csi-driver 
-    iam_role_additional_policies = { 
-        AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" 
-    } 
+    iam_role_additional_policies = {
+      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    }
   }
 
   node_security_group_tags = {
@@ -86,7 +101,7 @@ module "eks" {
       max_size     = 10
       desired_size = 2
 
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.large"]
       capacity_type  = "ON_DEMAND"
       tags = {
         ExtraTag = "prod-cluster"
@@ -311,7 +326,7 @@ module "acm" {
 
   domain_name = local.domain_name
   zone_id     = local.zone_id
-  
+
 
   subject_alternative_names = [
     "www.qa.${local.domain_name}",
@@ -331,38 +346,38 @@ module "dns_records" {
   version = "1.0.0"
 
   zone_id = local.zone_id
-   records = [
+  records = [
     {
-      name = var.prod_domain_name
+      name               = var.prod_domain_name
       full_name_override = true
-      type = "A"
-       alias = {
-        name    = module.alb.lb_dns_name
-        zone_id =  module.alb.lb_zone_id
+      type               = "A"
+      alias = {
+        name                   = module.alb.lb_dns_name
+        zone_id                = module.alb.lb_zone_id
         evaluate_target_health = true
       }
     },
     {
-      name = var.qa_domain_name
+      name               = var.qa_domain_name
       full_name_override = true
-      type = "A"
-       alias = {
-        name    = module.alb.lb_dns_name
-        zone_id =  module.alb.lb_zone_id
+      type               = "A"
+      alias = {
+        name                   = module.alb.lb_dns_name
+        zone_id                = module.alb.lb_zone_id
         evaluate_target_health = true
       }
-    }, 
+    },
     {
-      name = var.stage_domain_name
+      name               = var.stage_domain_name
       full_name_override = true
-      type = "A"
-       alias = {
-        name    = module.alb.lb_dns_name
-        zone_id =  module.alb.lb_zone_id
+      type               = "A"
+      alias = {
+        name                   = module.alb.lb_dns_name
+        zone_id                = module.alb.lb_zone_id
         evaluate_target_health = true
       }
-    },   
-]
+    },
+  ]
 }
 
 # module "waf" {
