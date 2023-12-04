@@ -86,7 +86,7 @@ module "eks" {
       max_size     = 10
       desired_size = 2
 
-      instance_types = ["t3.large"]
+      instance_types = ["t3.medium"]
       capacity_type  = "ON_DEMAND"
       tags = {
         ExtraTag = "prod-cluster"
@@ -329,7 +329,7 @@ module "acm" {
 module "dns_records" {
   source  = "app.terraform.io/heder24/route53/aws"
   version = "1.0.0"
-  
+
   zone_id = local.zone_id
    records = [
     {
