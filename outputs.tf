@@ -792,3 +792,29 @@ output "alb_arn" {
 #   description = "waf arn."
 #   value       = module.waf.waf_name
 # }
+
+############
+#ACM
+###########
+output "alb_dns_name" {
+  description = "IAM Instance profile's ID."
+  value       = module.alb.lb_dns_name
+}
+
+output "alb_zone_id" {
+  description = "IAM Instance profile's ID."
+  value       = module.alb.lb_zone_id
+}
+
+
+output "acm" {
+  description = "acm arn"
+  value       = module.acm.acm_certificate_arn
+}
+
+output "target_group_arns"{
+  description = "acm arn"
+  value       = module.alb.target_group_arns
+
+
+}

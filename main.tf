@@ -295,7 +295,75 @@ module "alb" {
   }
 
 }
+#############################################################
+# ACM
+#############################################################
 
+
+module "acm" {
+  source  = "app.terraform.io/heder24/acm/aws"
+  version = "1.0.0"
+
+  providers = {
+    aws.acm = aws,
+    aws.dns = aws
+  }
+
+  domain_name = local.domain_name
+  zone_id     = local.zone_id
+  
+
+  subject_alternative_names = [
+    "www.qa.${local.domain_name}",
+    "www.stage.${local.domain_name}",
+    "*.${local.domain_name}",
+  ]
+
+  tags = {
+    Name = local.domain_name
+  }
+}
+
+############################### Route53 Records #############################
+
+module "dns_records" {
+  source  = "app.terraform.io/heder24/route53/aws"
+  version = "1.0.0"
+  
+  zone_id = local.zone_id
+   records = [
+    {
+      name = var.prod_domain_name
+      full_name_override = true
+      type = "A"
+       alias = {
+        name    = module.alb.lb_dns_name
+        zone_id =  module.alb.lb_zone_id
+        evaluate_target_health = true
+      }
+    },
+    {
+      name = var.qa_domain_name
+      full_name_override = true
+      type = "A"
+       alias = {
+        name    = module.alb.lb_dns_name
+        zone_id =  module.alb.lb_zone_id
+        evaluate_target_health = true
+      }
+    }, 
+    {
+      name = var.stage_domain_name
+      full_name_override = true
+      type = "A"
+       alias = {
+        name    = module.alb.lb_dns_name
+        zone_id =  module.alb.lb_zone_id
+        evaluate_target_health = true
+      }
+    },   
+]
+}
 
 # module "waf" {
 #   source = "/home/cyber/repos/eks-project/modules/waf"
