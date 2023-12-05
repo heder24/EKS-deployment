@@ -76,13 +76,15 @@ module "eks" {
     }
   }
 
-     ingress_cluster_9443_webhook = {
-      description                   = "Cluster API to node 9443/tcp webhook"
-      protocol                      = "tcp"
-      from_port                     = 9443
-      to_port                       = 9443
+   node_security_group_additional_rules = {
+     ingress_cluster_all = {
+      description                   = "Cluster to node all ports/protocols"
+      protocol                      = "-1"
+      from_port                     = 0
+      to_port                       = 0
       type                          = "ingress"
       source_cluster_security_group = true
+    }
     }
   node_security_group_tags = {
     "kubernetes.io/cluster/${local.name}" = null
