@@ -86,6 +86,7 @@ module "eks" {
       source_cluster_security_group = true
     }
     }
+    
   node_security_group_tags = {
     "kubernetes.io/cluster/${local.name}" = null
   }
