@@ -76,8 +76,9 @@ module "eks" {
     }
   }
 
-   node_security_group_additional_rules = {
-   ingress_cluster_9443_webhook = {
+  cluster_security_group_additional_rules = {
+    # ALB controller, NGINX
+    ingress_cluster_9443_webhook = {
       description                   = "Cluster API to node 9443/tcp webhook"
       protocol                      = "tcp"
       from_port                     = 9443
@@ -85,11 +86,12 @@ module "eks" {
       type                          = "ingress"
       source_cluster_security_group = true
     }
-    }
-
-  node_security_group_tags = {
-    "kubernetes.io/cluster/${local.name}" = null
   }
+
+
+  # node_security_group_tags = {
+  #   "kubernetes.io/cluster/${local.name}" = null
+  # }
 
 
   eks_managed_node_groups = {
