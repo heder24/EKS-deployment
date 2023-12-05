@@ -87,14 +87,14 @@ module "eks" {
     }
     }
 
-  # node_security_group_tags = {
-  #   "kubernetes.io/cluster/${local.name}" = null
-  # }
+  node_security_group_tags = {
+    "kubernetes.io/cluster/${local.name}" = null
+  }
 
 
   eks_managed_node_groups = {
     prod = {
-      min_size     = 1
+      min_size     = 2
       max_size     = 10
       desired_size = 2
 
