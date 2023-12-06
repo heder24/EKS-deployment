@@ -70,13 +70,7 @@ module "eks" {
 
     attach_cluster_primary_security_group = true
 
-    # Needed by the aws-ebs-csi-driver 
-    iam_role_additional_policies = {
-      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-    }
-  }
-
-  cluster_security_group_additional_rules = {
+      cluster_security_group_additional_rules = {
     # ALB controller, NGINX
     ingress_cluster_9443_webhook = {
       description                   = "Cluster API to node 9443/tcp webhook"
@@ -87,6 +81,14 @@ module "eks" {
       source_cluster_security_group = true
     }
   }
+
+    # Needed by the aws-ebs-csi-driver 
+    iam_role_additional_policies = {
+      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    }
+  }
+
+
   node_security_group_tags = {
     "kubernetes.io/cluster/${local.name}" = null
   }
