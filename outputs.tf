@@ -732,55 +732,6 @@ output "vpc_flow_log_cloudwatch_iam_role_arn" {
   value       = module.vpc.vpc_flow_log_cloudwatch_iam_role_arn
 }
 
-# output "security_group_arn" {
-#   description = "The ARN of the security group"
-#   value       = module.public_sg.security_group_arn
-# }
-
-# output "security_group_id" {
-#   description = "The ID of the security group"
-#   value       = module.public_sg.security_group_id
-# }
-
-# output "security_group_vpc_id" {
-#   description = "The VPC ID"
-#   value       = module.public_sg.security_group_vpc_id
-# }
-
-# output "security_group_owner_id" {
-#   description = "The owner ID"
-#   value       = module.public_sg.security_group_owner_id
-# }
-
-# output "security_group_name" {
-#   description = "The name of the security group"
-#   value       = module.public_sg.security_group_name
-# }
-
-# output "security_group_description" {
-#   description = "The description of the security group"
-#   value       = module.public_sg.security_group_description
-# }
-
-# output "bastion_sg_security_group_id" {
-#   description = "The description of the security group"
-#   value       = module.bastion_sg.security_group_id
-# }
-
-# output "private_sg_security_group_id" {
-#   description = "The ID of the security group"
-#   value       = module.private_sg.security_group_id
-# }
-# ############################ IAM ########################
-# output "base-ec2-role" {
-#   description = "The ID of the security group"
-#   value       = module.base-ec2-role.iam_role_name
-# }
-
-# output "iam_instance_profile_id" {
-#   description = "IAM Instance profile's ID."
-#   value       = module.base-ec2-role.iam_instance_profile_id
-# }
 
 output "alb_arn" {
 
