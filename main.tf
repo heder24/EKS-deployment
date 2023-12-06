@@ -70,17 +70,6 @@ module "eks" {
 
     attach_cluster_primary_security_group = true
 
-      cluster_security_group_additional_rules = {
-    # ALB controller, NGINX
-    ingress_cluster_9443_webhook = {
-      description                   = "Cluster API to node 9443/tcp webhook"
-      protocol                      = "tcp"
-      from_port                     = 9443
-      to_port                       = 9443
-      type                          = "ingress"
-      source_cluster_security_group = true
-    }
-  }
 
     # Needed by the aws-ebs-csi-driver 
     iam_role_additional_policies = {
