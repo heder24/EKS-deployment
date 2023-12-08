@@ -41,10 +41,6 @@ module "eks" {
     aws-ebs-csi-driver = {
       most_recent = true
     }
-
-      aws-load-balancer-controller = {
-      most_recent = true
-    }
   }
 
 
