@@ -245,54 +245,54 @@ module "public_sg" {
 #alb
 #########################################################################
 
-# module "alb" {
-#   source  = "app.terraform.io/heder24/alb/aws"
-#   version = "1.0.0"
+module "alb" {
+  source  = "app.terraform.io/heder24/alb/aws"
+  version = "1.0.0"
 
-#   name = local.name
+  name = local.name
 
-#   load_balancer_type = "application"
+  load_balancer_type = "application"
 
-#   vpc_id          = module.vpc.vpc_id
-#   subnets         = module.vpc.public_subnets
-#   security_groups = [module.public_sg.security_group_id]
+  vpc_id          = module.vpc.vpc_id
+  subnets         = module.vpc.public_subnets
+  security_groups = [module.public_sg.security_group_id]
 
-#   http_tcp_listeners = [
+  http_tcp_listeners = [
 
-#     {
-#       port        = 80
-#       protocol    = "HTTP"
-#       action_type = "forward"
-#     },
-#   ]
+    {
+      port        = 80
+      protocol    = "HTTP"
+      action_type = "forward"
+    },
+  ]
 
-#   target_groups = [
-#     {
-#       name_prefix                       = "prod"
-#       backend_protocol                  = "HTTP"
-#       backend_port                      = 80
-#       target_type                       = "instance"
-#       deregistration_delay              = 10
-#       load_balancing_cross_zone_enabled = false
-#       health_check = {
-#         enabled             = true
-#         interval            = 30
-#         path                = var.health_path
-#         port                = "traffic-port"
-#         healthy_threshold   = 3
-#         unhealthy_threshold = 3
-#         timeout             = 6
-#         protocol            = "HTTP"
+  target_groups = [
+    {
+      name_prefix                       = "prod"
+      backend_protocol                  = "HTTP"
+      backend_port                      = 80
+      target_type                       = "instance"
+      deregistration_delay              = 10
+      load_balancing_cross_zone_enabled = false
+      health_check = {
+        enabled             = true
+        interval            = 30
+        path                = var.health_path
+        port                = "traffic-port"
+        healthy_threshold   = 3
+        unhealthy_threshold = 3
+        timeout             = 6
+        protocol            = "HTTP"
 
-#       }
-#       tags = {
-#         InstanceTargetGroupTag = "prod"
-#       }
-#     },
-#   ]
-#   lb_tags = {
-#     MyLoadBalancer = "prod-lb"
-#   }
+      }
+      tags = {
+        InstanceTargetGroupTag = "prod"
+      }
+    },
+  ]
+  lb_tags = {
+    MyLoadBalancer = "prod-lb"
+  }
 
 }
 #############################################################
