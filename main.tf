@@ -50,15 +50,15 @@ module "eks" {
 
 
   # aws-auth configmap
-  # manage_aws_auth_configmap = true
-  # aws_auth_users = [
-  #   {
-  #     userarn  = var.userarn
-  #     username = var.username
-  #     groups   = ["system:masters"]
-  #   },
+  manage_aws_auth_configmap = true
+  aws_auth_users = [
+    {
+      userarn  = var.userarn
+      username = var.username
+      groups   = ["system:masters"]
+    },
 
-  # ]
+  ]
 
 
   # EKS Managed Node Group(s)
