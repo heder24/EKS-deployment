@@ -25,6 +25,7 @@ module "eks" {
 
   cluster_name                   = local.name
   cluster_endpoint_public_access = true
+  cluster_endpoint_private_access = true
 
   cluster_addons = {
     coredns = {
@@ -47,17 +48,32 @@ module "eks" {
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
+  enable_irsa = true
 
 
   # aws-auth configmap
   manage_aws_auth_configmap = true
+
+  aws_auth_node_iam_role_arns_non_windows = [
+    module.eks_managed_node_group.iam_role_arn
+  ]
+ 
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks_managed_node_group.iam_role_arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups = [
+        "system:bootstrappers",
+        "system:nodes",
+      ]
+    }
+  ]
   aws_auth_users = [
     {
       userarn  = var.userarn
       username = var.username
       groups   = ["system:masters"]
-    },
-
+    }
   ]
 
 
@@ -134,6 +150,15 @@ module "vpc" {
   elasticache_subnet_names = ["Elasticache Subnet One", "Elasticache Subnet Two"]
   redshift_subnet_names    = ["Redshift Subnet One", "Redshift Subnet Two", "Redshift Subnet Three"]
   intra_subnet_names       = []
+  
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/cluster/prod" = "owned"
+  }
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = "1"
+    "kubernetes.io/cluster/prod" = "owned"
+  }
 
   create_database_subnet_group  = false
   manage_default_network_acl    = false
