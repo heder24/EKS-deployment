@@ -50,8 +50,7 @@ module "eks" {
   control_plane_subnet_ids = module.vpc.intra_subnets
   enable_irsa = true
 
-module "eks_managed_node_group" {
-  source = "../../modules/eks-managed-node-group"
+
   # aws-auth configmap
   manage_aws_auth_configmap = true
 
@@ -59,17 +58,17 @@ module "eks_managed_node_group" {
     module.eks_managed_node_group.iam_role_arn
   ]
  
-  aws_auth_roles = [
-    {
-      rolearn  = module.eks_managed_node_group.iam_role_arn
-      username = "system:node:{{EC2PrivateDNSName}}"
-      groups = [
-        "system:bootstrappers",
-        "system:nodes",
-      ]
-    }
-  ]
-}
+  # aws_auth_roles = [
+  #   {
+  #     rolearn  = module.eks_managed_node_group.iam_role_arn
+  #     username = "system:node:{{EC2PrivateDNSName}}"
+  #     groups = [
+  #       "system:bootstrappers",
+  #       "system:nodes",
+  #     ]
+  #   }
+  # ]
+
   aws_auth_users = [
     {
       userarn  = var.userarn
@@ -181,6 +180,24 @@ module "vpc" {
   flow_log_max_aggregation_interval    = 60
 
 }
+
+resource "aws_iam_policy" "additional" {
+  name = "${local.name}-additional"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:Describe*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 ################################################################################
 # Public SG
 ################################################################################
