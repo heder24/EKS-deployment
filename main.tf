@@ -50,7 +50,8 @@ module "eks" {
   control_plane_subnet_ids = module.vpc.intra_subnets
   enable_irsa = true
 
-
+module "eks_managed_node_group" {
+  source = "../../modules/eks-managed-node-group"
   # aws-auth configmap
   manage_aws_auth_configmap = true
 
@@ -68,6 +69,7 @@ module "eks" {
       ]
     }
   ]
+}
   aws_auth_users = [
     {
       userarn  = var.userarn
