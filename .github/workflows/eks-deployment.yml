@@ -185,7 +185,7 @@ jobs:
     - name: Terraform Destroy
       env:
         destroy: true
-      
+    
 
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
