@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "aws_load_balancer_controller_assume_role_policy"
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(module.eks.oidc_provider.eks, "https://", "")}:sub"
+      variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
       values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
     }
 
