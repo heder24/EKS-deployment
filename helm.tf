@@ -23,10 +23,10 @@ timeout = 600  # Set a higher timeout value in seconds
     value = module.eks.cluster_name
   }
 
-  set {
-    name  = "image.tag"
-    value = "latest"
-  }
+#   set {
+#     name  = "image.tag"
+#     value = "latest"
+#   }
 
   set {
     name  = "serviceAccount.name"
