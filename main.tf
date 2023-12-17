@@ -52,22 +52,22 @@ module "eks" {
 
 
   # aws-auth configmap
-  manage_aws_auth_configmap = true
+  # manage_aws_auth_configmap = true
 
-  aws_auth_node_iam_role_arns_non_windows = [
-    module.eks_managed_node_group.iam_role_arn
-  ]
+  # aws_auth_node_iam_role_arns_non_windows = [
+  #   module.eks_managed_node_group.iam_role_arn
+  # ]
  
-  aws_auth_roles = [
-    {
-      rolearn  = module.eks_managed_node_group.iam_role_arn
-      username = "system:node:{{EC2PrivateDNSName}}"
-      groups = [
-        "system:bootstrappers",
-        "system:nodes",
-      ]
-    }
-  ]
+  # aws_auth_roles = [
+  #   {
+  #     rolearn  = module.eks_managed_node_group.iam_role_arn
+  #     username = "system:node:{{EC2PrivateDNSName}}"
+  #     groups = [
+  #       "system:bootstrappers",
+  #       "system:nodes",
+  #     ]
+  #   }
+  # ]
 
   aws_auth_users = [
     {
