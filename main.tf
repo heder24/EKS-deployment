@@ -16,11 +16,11 @@ provider "kubernetes" {
 data "aws_caller_identity" "current" {}
 
 data "aws_eks_cluster" "prod" {
-  name =  module.eks.cluster_id
+  name = module.eks.cluster_name
 }
 
 data "aws_eks_cluster_auth" "prod" {
-  name =  module.eks.cluster_id
+  name = module.eks.cluster_name
 }
 
 ################################################################################
@@ -62,7 +62,6 @@ module "eks" {
 
   # aws-auth configmap
   manage_aws_auth_configmap = true
-
     aws_auth_roles = [
     {
       rolearn  = module.eks_admins_iam_role.iam_role_arn
@@ -86,13 +85,13 @@ module "eks" {
   #   }
   # ]
 
-  # aws_auth_users = [
-  #   {
-  #     userarn  = var.userarn
-  #     username = var.username
-  #     groups   = ["system:masters"]
-  #   }
-  # ]
+  aws_auth_users = [
+    {
+      userarn  = var.userarn
+      username = var.username
+      groups   = ["system:masters"]
+    }
+  ]
 
 
   # EKS Managed Node Group(s)
