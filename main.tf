@@ -1,14 +1,14 @@
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.prod.endpoint #module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.prod.certificate_authority[0].data)
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
 
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
     # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.prod.id ]
+    args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
   }
 
 }
