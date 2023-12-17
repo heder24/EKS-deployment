@@ -68,21 +68,21 @@ module "eks" {
       username = module.eks_admins_iam_role.iam_role_name
       groups   = ["system:masters"]
     },
-  
+    ]
    
-    {
-      rolearn  = module.eks_managed_node_group.iam_role_arn
-      username = "system:node:{{EC2PrivateDNSName}}"
-      groups = [
-        "system:bootstrappers",
-        "system:nodes",
-      ]
-    }
-  ]
+  #   {
+  #     rolearn  = module.eks_managed_node_group.iam_role_arn
+  #     username = "system:node:{{EC2PrivateDNSName}}"
+  #     groups = [
+  #       "system:bootstrappers",
+  #       "system:nodes",
+  #     ]
+  #   }
+  # ]
 
-  aws_auth_node_iam_role_arns_non_windows = [
-    module.eks_managed_node_group.iam_role_arn
-  ]
+  # aws_auth_node_iam_role_arns_non_windows = [
+  #   module.eks_managed_node_group.iam_role_arn
+  # ]
  
   # aws_auth_roles = [
   #   {
