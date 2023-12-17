@@ -69,13 +69,13 @@ module "eks" {
   #   }
   # ]
 
-  aws_auth_users = [
-    {
-      userarn  = var.userarn
-      username = var.username
-      groups   = ["system:masters"]
-    }
-  ]
+  # aws_auth_users = [
+  #   {
+  #     userarn  = var.userarn
+  #     username = var.username
+  #     groups   = ["system:masters"]
+  #   }
+  # ]
 
 
   # EKS Managed Node Group(s)
