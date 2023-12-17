@@ -1,18 +1,26 @@
 
 provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
+  host                   = data.aws_eks_cluster.default.endpoint#module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
     # This requires the awscli to be installed locally where Terraform is executed
-    args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+    args = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.default.id ]
   }
 
 }
 
 data "aws_caller_identity" "current" {}
+
+data "aws_eks_cluster" "default" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "default" {
+  name = module.eks.cluster_id
+}
 
 ################################################################################
 # EKS Module
@@ -54,6 +62,14 @@ module "eks" {
   # aws-auth configmap
   manage_aws_auth_configmap = true
 
+    aws_auth_roles = [
+    {
+      rolearn  = module.eks_admins_iam_role.iam_role_arn
+      username = module.eks_admins_iam_role.iam_role_name
+      groups   = ["system:masters"]
+    },
+  ]
+
   # aws_auth_node_iam_role_arns_non_windows = [
   #   module.eks_managed_node_group.iam_role_arn
   # ]
@@ -76,14 +92,6 @@ module "eks" {
   #     groups   = ["system:masters"]
   #   }
   # ]
-
-  aws_auth_roles = [
-    {
-      rolearn  = module.eks_admins_iam_role.iam_role_arn
-      username = module.eks_admins_iam_role.iam_role_name
-      groups   = ["system:masters"]
-    },
-  ]
 
 
   # EKS Managed Node Group(s)
