@@ -16,11 +16,11 @@ provider "kubernetes" {
 data "aws_caller_identity" "current" {}
 
 data "aws_eks_cluster" "prod" {
-  name = module.eks.cluster_name
+  name =  module.eks.cluster_id
 }
 
 data "aws_eks_cluster_auth" "prod" {
-  name = module.eks.cluster_name
+  name =  module.eks.cluster_id
 }
 
 ################################################################################
