@@ -217,6 +217,11 @@
         },
         {
             "Effect": "Allow",
+            "Action": "elasticloadbalancing:AddTags",
+            "Resource": "arn:aws:elasticloadbalancing:us-east-2:312029113425:targetgroup/k8s-default-knote-155dd315bb/*"
+          },
+        {
+            "Effect": "Allow",
             "Action": "elasticloadbalancing:DescribeLoadBalancers",
             "Resource": "*"
           }
