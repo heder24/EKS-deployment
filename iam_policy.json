@@ -220,7 +220,6 @@
             "Action": "elasticloadbalancing:DescribeLoadBalancers",
             "Resource": "*"
           }
-
             ]
           
     
