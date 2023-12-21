@@ -734,11 +734,11 @@ output "vpc_flow_log_cloudwatch_iam_role_arn" {
 
 
 
-output "alb_arn" {
+# output "alb_arn" {
 
-  description = "alb arn."
-  value       = module.alb.lb_arn
-}
+#   description = "alb arn."
+#   value       = module.alb.lb_arn
+# }
 
 # output "waf_name" {
 #   description = "waf arn."
@@ -748,15 +748,15 @@ output "alb_arn" {
 ############
 #ACM
 ###########
-output "alb_dns_name" {
-  description = "IAM Instance profile's ID."
-  value       = module.alb.lb_dns_name
-}
+# output "alb_dns_name" {
+#   description = "IAM Instance profile's ID."
+#   value       = module.alb.lb_dns_name
+# }
 
-output "alb_zone_id" {
-  description = "IAM Instance profile's ID."
-  value       = module.alb.lb_zone_id
-}
+# output "alb_zone_id" {
+#   description = "IAM Instance profile's ID."
+#   value       = module.alb.lb_zone_id
+# }
 
 
 output "acm" {
