@@ -382,11 +382,11 @@ module "dns_records" {
       name               = var.prod_domain_name
       full_name_override = true
       type               = "A"
-      alias = {
-        name                   = module.alb.lb_dns_name
-        zone_id                = module.alb.lb_zone_id
-        evaluate_target_health = true
-      }
+      # alias = {
+      #   name                   = module.alb.lb_dns_name
+      #   zone_id                = module.alb.lb_zone_id
+      #   evaluate_target_health = true
+      # }
     },
  
   
