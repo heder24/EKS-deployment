@@ -27,22 +27,6 @@ variable "prod_domain_name" {
   default = "www.hederdevops.com"
 }
 
-variable "stage_domain_name" {
-  type    = string
-  default = "www.stage.hederdevops.com"
-}
-variable "host_header_stage_domain_name" {
-  type    = string
-  default = "stage.hederdevops.com"
-}
-variable "qa_domain_name" {
-  type    = string
-  default = "www.qa.hederdevops.com"
-}
-variable "host_header_qa_domain_name" {
-  type    = string
-  default = "qa.hederdevops.com"
-}
 
 variable "host_domain_name" {
   type    = string

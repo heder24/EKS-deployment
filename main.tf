@@ -361,9 +361,8 @@ module "acm" {
 
 
   subject_alternative_names = [
-    "www.qa.${local.domain_name}",
-    "www.stage.${local.domain_name}",
-    "*.${local.domain_name}",
+    "www.${local.domain_name}",
+ 
   ]
 
   tags = {
@@ -389,26 +388,8 @@ module "dns_records" {
         evaluate_target_health = true
       }
     },
-    {
-      name               = var.qa_domain_name
-      full_name_override = true
-      type               = "A"
-      alias = {
-        name                   = module.alb.lb_dns_name
-        zone_id                = module.alb.lb_zone_id
-        evaluate_target_health = true
-      }
-    },
-    {
-      name               = var.stage_domain_name
-      full_name_override = true
-      type               = "A"
-      alias = {
-        name                   = module.alb.lb_dns_name
-        zone_id                = module.alb.lb_zone_id
-        evaluate_target_health = true
-      }
-    },
+ 
+  
   ]
 }
 
