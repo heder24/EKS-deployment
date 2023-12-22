@@ -15,23 +15,27 @@ data "aws_iam_policy_document" "external_dns_role_assume_role_policy" {
     }
   }
 }
-resource "aws_iam_role" "external_dns_role" {
-  name = "ExternalDNSUpdateRole"
+# resource "aws_iam_role" "external_dns_role" {
+#   name = "ExternalDNSUpdateRole"
   
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
+#   assume_role_policy = <<EOF
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Effect": "Allow",
+#       "Principal": {
+#         "Service": "lambda.amazonaws.com"
+#       },
+#       "Action": "sts:AssumeRole"
+#     }
+#   ]
+# }
+# EOF
+# }
+resource "aws_iam_role" "external_dns_role" {
+  assume_role_policy = data.aws_iam_policy_document.external_dns_role_assume_role_policy_assume_role_policy.json
+  name               = "external-dns"
 }
 
 resource "aws_iam_policy" "external_dns_policy" {
