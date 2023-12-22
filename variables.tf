@@ -97,3 +97,17 @@ variable "cluster_name" {
   type    = string
   default = "prod"
 }
+#Keys
+variable "aws_access_key" {
+  type        = string
+  description = "AWS Access Key"
+  sensitive   = true
+  default = "AKIAURJTCNRI2EO27RUC"
+}
+
+variable "aws_secret_key" {
+  type        = string
+  description = "AWS Secret Key"
+  sensitive   = true
+  default = "Jtz0K+k2Ti+li/L/T8sugkF6vW5q7M2G9xXgkOtC"
+}

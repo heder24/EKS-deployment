@@ -1,14 +1,10 @@
-# provider "helm" {
-#   kubernetes {
-#     host                   = aws_eks_cluster.module.eks.cluster_endpoint
-#     cluster_ca_certificate = base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)
-#     exec {
-#       api_version = "client.authentication.k8s.io/v1beta1"
-#       args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
-#       command     = "aws"
-#     }
-#   }
-# }
+# Create Service Account for ExternalDNS
+resource "kubernetes_service_account" "external_dns_service_account" {
+  metadata {
+    name = "external-dns"
+    namespace = "kube-system"# Adjust the namespace as needed
+  }
+}
 
 resource "helm_release" "external-dns" {
   name = "external-dns"
@@ -52,6 +48,57 @@ resource "helm_release" "external-dns" {
 #     value = "sync"  # Adjust the policy as needed
 #   }
 
+
+ set {
+    name  = "source"
+    value = "service,ingress"
+  }
+
+  set {
+    name  = "domainFilter"
+    value = "hederdevops.com"  # Adjust the domain filter as needed
+  }
+
+  set {
+    name  = "provider"
+    value = "aws"
+  }
+
+  set {
+    name  = "policy"
+    value = "upsert-only"
+  }
+
+  set {
+    name  = "awsZoneType"
+    value = "public"
+  }
+
+  set {
+    name  = "registry"
+    value = "txt"
+  }
+
+  set {
+    name  = "txtOwnerId"
+    value = "my-hostedzone-identifier"
+  }
+
+  set {
+    name  = "aws.accessKey"
+    value = var.aws_access_key # Provide your AWS access key
+  }
+
+  set {
+    name  = "aws.secretKey"
+    value = var.aws_secret_key  # Provide your AWS secret key
+  }
+
+
+  set {
+    name  = "securityContext.fsGroup"
+    value = "65534"
+  }
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
