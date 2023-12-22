@@ -180,7 +180,7 @@ jobs:
         apply: false
       #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push' d
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -input=true
 
     - name: Terraform Destroy
       env:
