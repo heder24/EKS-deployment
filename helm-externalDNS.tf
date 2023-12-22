@@ -84,15 +84,15 @@ resource "helm_release" "external-dns" {
     value = "my-hostedzone-identifier"
   }
 
-  set {
-    name  = "aws.accessKey"
-    value = var.aws_access_key # Provide your AWS access key
-  }
+#   set {
+#     name  = "aws.accessKey"
+#     value = var.aws_access_key # Provide your AWS access key
+#   }
 
-  set {
-    name  = "aws.secretKey"
-    value = var.aws_secret_key  # Provide your AWS secret key
-  }
+#   set {
+#     name  = "aws.secretKey"
+#     value = var.aws_secret_key  # Provide your AWS secret key
+#   }
 
 
   set {
