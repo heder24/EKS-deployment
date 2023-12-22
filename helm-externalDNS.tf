@@ -1,10 +1,10 @@
-# # Create Service Account for ExternalDNS
-# resource "kubernetes_service_account" "external_dns_service_account" {
-#   metadata {
-#     name = "external-dns"
-#     namespace = "kube-system"# Adjust the namespace as needed
-#   }
-# }
+# Create Service Account for ExternalDNS
+resource "kubernetes_service_account" "external_dns_service_account" {
+  metadata {
+    name = "external-dns"
+    namespace = "kube-system"# Adjust the namespace as needed
+  }
+}
 
 resource "helm_release" "external-dns" {
   name = "external-dns"
