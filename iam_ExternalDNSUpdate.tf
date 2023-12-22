@@ -49,11 +49,22 @@ resource "aws_iam_policy" "external_dns_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "route53:ChangeResourceRecordSets",
-        "route53:GetChange",
-        "route53:ListResourceRecordSets"
+        "route53:ChangeResourceRecordSets"
       ],
-      "Resource": "*"
+      "Resource": [
+        "arn:aws:route53:::hostedzone/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets",
+        "route53:ListTagsForResource"
+      ],
+      "Resource": [
+        "*"
+      ]
     }
   ]
 }
