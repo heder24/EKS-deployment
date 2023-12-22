@@ -56,7 +56,7 @@ resource "aws_iam_policy" "external_dns_policy" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy" {
+resource "aws_iam_role_policy_attachment" "external_dns_attach_policy" {
   policy_arn = aws_iam_policy.external_dns_policy.arn
   role       = aws_iam_role.external_dns_role.name
 }

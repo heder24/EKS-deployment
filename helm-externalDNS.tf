@@ -40,7 +40,7 @@ timeout = 600  # Set a higher timeout value in seconds
 
   depends_on = [
     module.eks.eks_managed_node_groups,
-    aws_iam_role_policy_attachment.external_dns_attach
+    aws_iam_role_policy_attachment.external_dns_attach_policy
   ]
 
   
