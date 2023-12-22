@@ -15,6 +15,7 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
+  create_namespace = true
   timeout = 1200  # Set a higher timeout value in seconds
 
   set {
@@ -22,13 +23,17 @@ resource "helm_release" "external-dns" {
     value = module.eks.cluster_name
   }
 
-  # set {
-  #   name  = "image.tag"
-  #   value = "latest"
-  # }
-
   set {
     name  = "serviceAccount.name"
+    value = "external-dns"
+  }
+    set {
+    name  = "rbac.create"
+    value = "true"
+  }
+
+  set {
+    name  = "rbac.serviceAccountName"
     value = "external-dns"
   }
 
@@ -40,7 +45,5 @@ resource "helm_release" "external-dns" {
   depends_on = [
     module.eks.eks_managed_node_groups,
     aws_iam_role_policy_attachment.external_dns_attach_policy
-  ]
-
-  
+  ] 
 }
