@@ -47,10 +47,10 @@ resource "helm_release" "external-dns" {
 #     value = "<AWS_ACCESS_KEY>"  # Provide your AWS access key
 #   }
 
-  set {
-    name  = "policy"
-    value = "sync"  # Adjust the policy as needed
-  }
+#   set {
+#     name  = "policy"
+#     value = "sync"  # Adjust the policy as needed
+#   }
 
 
   set {
