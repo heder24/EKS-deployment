@@ -37,6 +37,22 @@ resource "helm_release" "external-dns" {
     value = "external-dns"
   }
 
+#   set {
+#     name  = "aws.secretKey"
+#     value = "<AWS_SECRET_KEY>"  # Provide your AWS secret key
+#   }
+
+#   set {
+#     name  = "aws.accessKey"
+#     value = "<AWS_ACCESS_KEY>"  # Provide your AWS access key
+#   }
+
+  set {
+    name  = "policy"
+    value = "sync"  # Adjust the policy as needed
+  }
+
+
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = aws_iam_role.external_dns_role.arn
