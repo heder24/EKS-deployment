@@ -12,7 +12,7 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
   create_namespace = true
-  timeout = 1200  # Set a higher timeout value in seconds
+  timeout = 600 # Set a higher timeout value in seconds
 
   set {
     name  = "clusterName"
