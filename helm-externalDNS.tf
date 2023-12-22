@@ -49,10 +49,10 @@ resource "helm_release" "external-dns" {
 #   }
 
 
- set {
-    name  = "source"
-    value = "service,ingress"
-  }
+#  set {
+#     name  = "source"
+#     value = "service,ingress"
+#   }
 
   set {
     name  = "domainFilter"
