@@ -15,8 +15,7 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
-#   version    = "1.4.1"
-timeout = 800  # Set a higher timeout value in seconds
+  timeout = 600  # Set a higher timeout value in seconds
 
   set {
     name  = "clusterName"
