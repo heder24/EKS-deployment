@@ -24,13 +24,13 @@ output "ami_id" {
 }
 
 
-data "aws_route53_zone" "heder_lab_zone" {
+data "aws_route53_zone" "hosted_zone" {
   name = var.zone
 
 }
 
 output "zone_id" {
-  value = data.aws_route53_zone.heder_lab_zone.id
+  value = data.aws_route53_zone.hosted_zone.id
 
 }
 
