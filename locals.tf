@@ -18,6 +18,6 @@ locals {
   EOT
   domain                    = var.domain_name
   domain_name               = local.domain
-  zone_id                   = data.aws_route53_zone.heder_lab_zone.id
+  zone_id                   = data.aws_route53_zone.hosted_zone.id
   use_existing_route53_zone = true
 }
