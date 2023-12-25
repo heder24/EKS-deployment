@@ -2,7 +2,7 @@
 resource "helm_release" "external-dns" {
   name = "external-dns"
   repository = "https://kubernetes-sigs.github.io/external-dns/"
-  chart      = "external-dns/external-dns"
+  chart      = "external-dns"
   namespace  = "kube-system"
   create_namespace = true
   timeout = 600 # Set a higher timeout value in seconds
