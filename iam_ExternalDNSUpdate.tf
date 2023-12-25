@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "external_dns_role_assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
-      values   = ["system:serviceaccount:kube-system:external_dns"]
+      values   = ["system:serviceaccount:kube-system:external-dns"]
     }
 
     principals {
