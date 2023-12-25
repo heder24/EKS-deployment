@@ -5,8 +5,7 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
   create_namespace = true
-  # timeout = 600 # Set a higher timeout value in seconds
-
+  
     set {
     name  = "wait-for"
      value = aws_iam_role.external_dns_role.arn
@@ -31,11 +30,6 @@ resource "helm_release" "external-dns" {
     value = "external-dns"
   }
 
-#  set {
-#     name  = "source"
-#     value = "service,ingress"
-#   }
-
   set {
     name  = "domainFilter"
     value = "hederdevops.com"  # Adjust the domain filter as needed
@@ -55,7 +49,6 @@ resource "helm_release" "external-dns" {
     name  = "awsZoneType"
     value = "public"
   }
-
 
   set {
     name  = "txtOwnerId"
