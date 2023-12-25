@@ -5,7 +5,13 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
   create_namespace = true
-  timeout = 600 # Set a higher timeout value in seconds
+  # timeout = 600 # Set a higher timeout value in seconds
+
+    set {
+    name  = "wait-for"
+     value = aws_iam_role.external_dns_role.arn
+  }
+
 
   set {
     name  = "clusterName"
@@ -51,20 +57,12 @@ resource "helm_release" "external-dns" {
     value = "public"
   }
 
-  set {
-    name  = "registry"
-    value = "txt"
-  }
 
   set {
     name  = "txtOwnerId"
     value = data.aws_route53_zone.hosted_zone.id
   }
 
-  set {
-    name  = "securityContext.fsGroup"
-    value = "65534"
-  }
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
