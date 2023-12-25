@@ -34,6 +34,11 @@ output "zone_id" {
 
 }
 
+output "zone_arn" {
+  value = data.aws_route53_zone.hosted_zone.arn
+
+}
+
 data "aws_eip" "bastion_eip" {
   public_ip = "18.189.113.127"
 }
