@@ -12,7 +12,6 @@ resource "helm_release" "external-dns" {
      value = aws_iam_role.external_dns_role.arn
   }
 
-
   set {
     name  = "clusterName"
     value = module.eks.cluster_name
@@ -22,15 +21,15 @@ resource "helm_release" "external-dns" {
     name  = "serviceAccount.name"
     value = "external-dns"
   }
-    set {
-    name  = "rbac.create"
-    value = "true"
-  }
+  #   set {
+  #   name  = "rbac.create"
+  #   value = "true"
+  # }
 
-  set {
-    name  = "rbac.serviceAccountName"
-    value = "external-dns"
-  }
+  # set {
+  #   name  = "rbac.serviceAccountName"
+  #   value = "external-dns"
+  # }
 
 #  set {
 #     name  = "source"
