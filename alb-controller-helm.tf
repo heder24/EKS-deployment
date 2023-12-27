@@ -23,6 +23,14 @@ resource "helm_release" "aws-load-balancer-controller" {
     module.eks.eks_managed_node_groups,
     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
   ]
-
   
+}
+
+data "helm_release" "aws-load-balancer-controller" {
+  name      = "aws-load-balancer-controller"
+  
+}
+
+output "app_name" {
+  value = data.helm_release.aws-load-balancer-controller.name
 }
