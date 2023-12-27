@@ -1,6 +1,6 @@
 resource "helm_release" "app" {
   name = "knote"
-  repository = "./app/*"
+  repository = "../app"
   chart      = "app"
   namespace  = "knote-app"
   
