@@ -10,3 +10,4 @@ resource "helm_release" "knote" {
   ] 
 }
 
+
