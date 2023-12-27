@@ -1,4 +1,4 @@
-resource "helm_release" "app" {
+resource "helm_release" "knote-chart" {
   name = "knote"
   repository = "./knote-chart"
   chart      = "knote-chart"
