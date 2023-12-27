@@ -1,6 +1,6 @@
 resource "helm_release" "app" {
   name = "knote"
-  repository = "/home/cyber/repos/EKS-deployment/charts/app"
+  repository = "./knote-chart"
   chart      = "app"
   namespace  = "knote-app"
   
