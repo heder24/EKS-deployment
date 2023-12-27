@@ -26,11 +26,3 @@ resource "helm_release" "aws-load-balancer-controller" {
   
 }
 
-data "helm_release" "aws-load-balancer-controller" {
-  name      = "aws-load-balancer-controller"
-  
-}
-
-output "app_name" {
-  value = data.helm_release.aws-load-balancer-controller.name
-}
