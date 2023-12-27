@@ -4,7 +4,6 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
-  create_namespace = true
   
     set {
     name  = "wait-for"
