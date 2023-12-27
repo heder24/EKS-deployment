@@ -1,4 +1,4 @@
-resource "helm_release" "aws-load-balancer-controller" {
+resource "helm_release" "app" {
   name = "aws-load-balancer-controller"
   repository = "./app"
   chart      = "app"
