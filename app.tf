@@ -6,7 +6,6 @@ resource "helm_release" "app" {
   
    depends_on = [
     module.eks.eks_managed_node_groups,
-    helm_release.aws-load-balancer-controller.name,
-
+    helm_release.aws-load-balancer-controller.name
   ] 
 }
