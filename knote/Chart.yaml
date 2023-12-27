@@ -1,0 +1,5 @@
+# knote/Chart.yaml
+apiVersion: v2
+name: knote
+description: A Helm chart for Knote application
+version: 0.1.0

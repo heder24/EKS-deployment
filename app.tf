@@ -1,7 +1,7 @@
-resource "helm_release" "knote-chart" {
+resource "helm_release" "knote" {
   name = "knote"
   repository = "./knote-chart"
-  chart      = "knote-chart"
+  chart      = "./knote"
   namespace  = "knote-app"
   
    depends_on = [
