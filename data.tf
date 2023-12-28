@@ -48,12 +48,10 @@ output "allocation_id" {
 
 }
 
-# data "aws_caller_identity" "my-id" {}
+data "aws_acm_certificate" "certificate" {
+  domain = "www.hederdevops.com"  # Replace with your domain name
+}
 
-# data "aws_eks_cluster" "prod" {
-#   name = module.eks.cluster_id
-# }
-
-# data "aws_eks_cluster_auth" "prod" {
-#   name = module.eks.cluster_id
-# }
+output "certificate_arn" {
+  value = data.aws_acm_certificate.certificate.arn
+}

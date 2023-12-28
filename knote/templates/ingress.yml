@@ -11,7 +11,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: module.acm.acm_certificate_arn
+    alb.ingress.kubernetes.io/certificate-arn: data.aws_acm_certificate.certificate.arn
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     # alb.ingress.kubernetes.io/group.name: app
     alb.ingress.kubernetes.io/actions.ssl-redirect: >-
