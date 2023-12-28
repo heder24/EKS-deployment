@@ -1,13 +1,13 @@
 
 resource "helm_release" "external-dns" {
-  name = "external-dns"
+  name       = "external-dns"
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
-  
-    set {
+
+  set {
     name  = "wait-for"
-     value = aws_iam_role.external_dns_role.arn
+    value = aws_iam_role.external_dns_role.arn
   }
 
   set {
@@ -19,7 +19,7 @@ resource "helm_release" "external-dns" {
     name  = "serviceAccount.name"
     value = "external-dns"
   }
-    set {
+  set {
     name  = "rbac.create"
     value = "true"
   }
@@ -31,7 +31,7 @@ resource "helm_release" "external-dns" {
 
   set {
     name  = "domainFilter"
-    value = "hederdevops.com"  # Adjust the domain filter as needed
+    value = "hederdevops.com" # Adjust the domain filter as needed
   }
 
   set {
@@ -63,5 +63,5 @@ resource "helm_release" "external-dns" {
   depends_on = [
     module.eks.eks_managed_node_groups,
     aws_iam_role_policy_attachment.external_dns_attach_policy
-  ] 
+  ]
 }

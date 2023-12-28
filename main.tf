@@ -25,8 +25,8 @@ module "eks" {
   source  = "app.terraform.io/heder24/eks/aws"
   version = "1.0.0"
 
-  cluster_name                   = local.name
-  cluster_endpoint_public_access = true
+  cluster_name                    = local.name
+  cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
 
   cluster_addons = {
@@ -50,19 +50,19 @@ module "eks" {
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
-  enable_irsa = true
+  enable_irsa              = true
 
 
   # aws-auth configmap
   manage_aws_auth_configmap = true
-    aws_auth_roles = [
+  aws_auth_roles = [
     {
       rolearn  = module.eks_admins_iam_role.iam_role_arn
       username = module.eks_admins_iam_role.iam_role_name
       groups   = ["system:masters"]
     },
-    ]
-   
+  ]
+
   #   {
   #     rolearn  = module.eks_managed_node_group.iam_role_arn
   #     username = "system:node:{{EC2PrivateDNSName}}"
@@ -76,7 +76,7 @@ module "eks" {
   # aws_auth_node_iam_role_arns_non_windows = [
   #   module.eks_managed_node_group.iam_role_arn
   # ]
- 
+
   # aws_auth_roles = [
   #   {
   #     rolearn  = module.eks_managed_node_group.iam_role_arn
@@ -170,14 +170,14 @@ module "vpc" {
   elasticache_subnet_names = ["Elasticache Subnet One", "Elasticache Subnet Two"]
   redshift_subnet_names    = ["Redshift Subnet One", "Redshift Subnet Two", "Redshift Subnet Three"]
   intra_subnet_names       = []
-  
+
   public_subnet_tags = {
-    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/role/elb"     = "1"
     "kubernetes.io/cluster/prod" = "owned"
   }
   private_subnet_tags = {
     "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/prod" = "owned"
+    "kubernetes.io/cluster/prod"      = "owned"
   }
 
   create_database_subnet_group  = false
@@ -361,7 +361,7 @@ module "acm" {
 
   subject_alternative_names = [
     "www.${local.domain_name}",
- 
+
   ]
 
   tags = {
@@ -387,7 +387,7 @@ module "acm" {
 #         evaluate_target_health = true
 #       }
 #     },
- 
+
 #   ]
 # }
 
