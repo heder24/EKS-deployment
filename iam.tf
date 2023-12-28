@@ -93,7 +93,7 @@ resource "aws_iam_policy" "eks_access_policy" {
       "Action": [
         "eks:DescribeCluster",
         "eks:ListClusters",
-        "eks:AccessKubernetesApi"
+        "eks:AccessKubernetesApi",
         "eks:ListFargateProfiles",
         "eks:DescribeNodegroup",
         "eks:ListNodegroups",
