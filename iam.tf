@@ -104,7 +104,6 @@ resource "aws_iam_policy" "eks_access_policy" {
         "eks:DescribeAddonVersions",
         "eks:ListIdentityProviderConfigs",
         "iam:ListRoles"
-        // Add other EKS-related permissions as needed
       ],
       "Resource": "*"
     }
