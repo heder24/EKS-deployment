@@ -80,9 +80,11 @@ module "eks_admins_iam_group" {
 
 ##########################
 
+
+
 resource "aws_iam_policy" "eks_access_policy" {
-  name        = "EKSAccessPolicy"
-  description = "IAM policy for EKS access"
+  name        = "eks-access-policy"
+  description = "IAM policy for EKS cluster access"
 
   policy = <<EOF
 {
@@ -110,6 +112,8 @@ resource "aws_iam_policy" "eks_access_policy" {
 }
 EOF
 }
+
+
 
 resource "aws_iam_user_policy_attachment" "attach_eks_access_policy" {
   user       = var.username
