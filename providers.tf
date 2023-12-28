@@ -3,7 +3,7 @@ terraform {
     organization = "heder24"
 
     workspaces {
-      name = "my-knote"
+      name = "my-knote-app"
     }
   }
 }
@@ -12,11 +12,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 5.3"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.23.0"
+      version = "2.24.0"
 
     }
     helm = {
