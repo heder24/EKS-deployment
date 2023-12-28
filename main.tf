@@ -1,142 +1,142 @@
 
-# provider "kubernetes" {
-#   host                   = module.eks.cluster_endpoint
-#   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
 
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1beta1"
-#     command     = "aws"
-#     # This requires the awscli to be installed locally where Terraform is executed
-#     args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
-#   }
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    # This requires the awscli to be installed locally where Terraform is executed
+    args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+  }
 
-# }
+}
 
-# data "aws_caller_identity" "current" {}
-
-
-# ################################################################################
-# # EKS Module
-# ################################################################################
+data "aws_caller_identity" "current" {}
 
 
-# module "eks" {
-#   source  = "app.terraform.io/heder24/eks/aws"
-#   version = "1.0.0"
-
-#   cluster_name                    = local.name
-#   cluster_endpoint_public_access  = true
-#   cluster_endpoint_private_access = true
-
-#   cluster_addons = {
-#     coredns = {
-#       preserve    = true
-#       most_recent = true
-#     }
-#     kube-proxy = {
-#       most_recent = true
-#     }
-#     vpc-cni = {
-#       most_recent = true
-#     }
-
-#     aws-ebs-csi-driver = {
-#       most_recent = true
-#     }
-#   }
+################################################################################
+# EKS Module
+################################################################################
 
 
-#   vpc_id                   = module.vpc.vpc_id
-#   subnet_ids               = module.vpc.private_subnets
-#   control_plane_subnet_ids = module.vpc.intra_subnets
-#   enable_irsa              = true
+module "eks" {
+  source  = "app.terraform.io/heder24/eks/aws"
+  version = "1.0.0"
+
+  cluster_name                    = local.name
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
+
+  cluster_addons = {
+    coredns = {
+      preserve    = true
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent = true
+    }
+
+    aws-ebs-csi-driver = {
+      most_recent = true
+    }
+  }
 
 
-#   # aws-auth configmap
-#   manage_aws_auth_configmap = true
-#   aws_auth_roles = [
-#     {
-#       rolearn  = module.eks_admins_iam_role.iam_role_arn
-#       username = module.eks_admins_iam_role.iam_role_name
-#       groups   = ["system:masters"]
-#     },
-#   ]
+  vpc_id                   = module.vpc.vpc_id
+  subnet_ids               = module.vpc.private_subnets
+  control_plane_subnet_ids = module.vpc.intra_subnets
+  enable_irsa              = true
 
-#   #   {
-#   #     rolearn  = module.eks_managed_node_group.iam_role_arn
-#   #     username = "system:node:{{EC2PrivateDNSName}}"
-#   #     groups = [
-#   #       "system:bootstrappers",
-#   #       "system:nodes",
-#   #     ]
-#   #   }
-#   # ]
 
-#   # aws_auth_node_iam_role_arns_non_windows = [
-#   #   module.eks_managed_node_group.iam_role_arn
-#   # ]
+  # aws-auth configmap
+  manage_aws_auth_configmap = true
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks_admins_iam_role.iam_role_arn
+      username = module.eks_admins_iam_role.iam_role_name
+      groups   = ["system:masters"]
+    },
+  ]
 
+  #   {
+  #     rolearn  = module.eks_managed_node_group.iam_role_arn
+  #     username = "system:node:{{EC2PrivateDNSName}}"
+  #     groups = [
+  #       "system:bootstrappers",
+  #       "system:nodes",
+  #     ]
+  #   }
+  # ]
+
+  # aws_auth_node_iam_role_arns_non_windows = [
+  #   module.eks_managed_node_group.iam_role_arn
+  # ]
+
+
+
+  aws_auth_users = [
+    {
+      userarn  = var.userarn
+      username = var.username
+      groups   = ["system:masters"]
+    }
+  ]
+
+
+  # EKS Managed Node Group(s)
+  eks_managed_node_group_defaults = {
+    ami_type       = "AL2_x86_64"
+    instance_types = ["t3.large"]
+
+    attach_cluster_primary_security_group = true
+
+
+    # Needed by the aws-ebs-csi-driver 
+    iam_role_additional_policies = {
+      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    }
+  }
+
+  node_security_group_tags = {
+    "kubernetes.io/cluster/${local.name}" = null
+  }
+
+
+  eks_managed_node_groups = {
+    prod = {
+      min_size     = 2
+      max_size     = 10
+      desired_size = 2
+
+      instance_types = ["t3.large"]
+      capacity_type  = "ON_DEMAND"
+      tags = {
+        ExtraTag = "prod-cluster"
+      }
+    }
+  }
+}
 
 
 #   aws_auth_users = [
 #     {
-#       userarn  = var.userarn
-#       username = var.username
+#       userarn  = "arn:aws:iam::66666666666:user/user1"
+#       username = "user1"
 #       groups   = ["system:masters"]
-#     }
+#     },
+#     {
+#       userarn  = "arn:aws:iam::66666666666:user/user2"
+#       username = "user2"
+#       groups   = ["system:masters"]
+#     },
 #   ]
 
-
-#   # EKS Managed Node Group(s)
-#   eks_managed_node_group_defaults = {
-#     ami_type       = "AL2_x86_64"
-#     instance_types = ["t3.large"]
-
-#     attach_cluster_primary_security_group = true
-
-
-#     # Needed by the aws-ebs-csi-driver 
-#     iam_role_additional_policies = {
-#       AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-#     }
-#   }
-
-#   node_security_group_tags = {
-#     "kubernetes.io/cluster/${local.name}" = null
-#   }
-
-
-#   eks_managed_node_groups = {
-#     prod = {
-#       min_size     = 2
-#       max_size     = 10
-#       desired_size = 2
-
-#       instance_types = ["t3.large"]
-#       capacity_type  = "ON_DEMAND"
-#       tags = {
-#         ExtraTag = "prod-cluster"
-#       }
-#     }
-#   }
 # }
-
-
-# #   aws_auth_users = [
-# #     {
-# #       userarn  = "arn:aws:iam::66666666666:user/user1"
-# #       username = "user1"
-# #       groups   = ["system:masters"]
-# #     },
-# #     {
-# #       userarn  = "arn:aws:iam::66666666666:user/user2"
-# #       username = "user2"
-# #       groups   = ["system:masters"]
-# #     },
-# #   ]
-
-# # }
 
 
 ###############################################################################
