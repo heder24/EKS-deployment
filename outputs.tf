@@ -759,10 +759,10 @@ output "vpc_flow_log_cloudwatch_iam_role_arn" {
 # }
 
 
-# output "acm" {
-#   description = "acm arn"
-#   value       = module.acm.acm_certificate_arn
-# }
+output "acm" {
+  description = "acm arn"
+  value       = module.acm.acm_certificate_arn
+}
 
 # output "target_group_arns" {
 #   description = "acm arn"

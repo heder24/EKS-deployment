@@ -351,36 +351,14 @@ module "acm" {
 
 
   subject_alternative_names = [
-    "www.${local.domain_name}",
-
+    "www.${local.domain_name}"
   ]
 
   tags = {
     Name = local.domain_name
   }
 }
-
-############################### Route53 Records #############################
-
-# module "dns_records" {
-#   source  = "app.terraform.io/heder24/route53/aws"
-#   version = "1.0.0"
-
-#   zone_id = local.zone_id
-#   records = [
-#     {
-#       name               = var.prod_domain_name
-#       full_name_override = true
-#       type               = "A"
-#       alias = {
-#         name                   = module.alb.lb_dns_name
-#         zone_id                = module.alb.lb_zone_id
-#         evaluate_target_health = true
-#       }
-#     },
-
-#   ]
-# }
+######################################waf#######################################################
 
 # module "waf" {
 #   source = "/home/cyber/repos/eks-project/modules/waf"
