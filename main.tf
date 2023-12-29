@@ -63,22 +63,6 @@ module "eks" {
     },
   ]
 
-  #   {
-  #     rolearn  = module.eks_managed_node_group.iam_role_arn
-  #     username = "system:node:{{EC2PrivateDNSName}}"
-  #     groups = [
-  #       "system:bootstrappers",
-  #       "system:nodes",
-  #     ]
-  #   }
-  # ]
-
-  # aws_auth_node_iam_role_arns_non_windows = [
-  #   module.eks_managed_node_group.iam_role_arn
-  # ]
-
-
-
   aws_auth_users = [
     {
       userarn  = var.userarn
@@ -111,7 +95,7 @@ module "eks" {
     prod = {
       min_size     = 2
       max_size     = 10
-      desired_size = 2
+      desired_size = 3
 
       instance_types = ["t3.large"]
       capacity_type  = "ON_DEMAND"

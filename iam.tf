@@ -11,6 +11,16 @@ module "allow_eks_access_iam_policy" {
       {
         Action = [
           "eks:DescribeCluster",
+          "eks:ListClusters",
+          "eks:AccessKubernetesApi",
+          "eks:ListFargateProfiles",
+          "eks:DescribeNodegroup",
+          "eks:ListNodegroups",
+          "eks:ListUpdates",
+          "eks:ListAddons",
+          "eks:DescribeAddonVersions",
+          "eks:ListIdentityProviderConfigs",
+          "iam:ListRoles"
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -94,16 +104,16 @@ module "eks_admins_iam_group" {
 #       "Effect": "Allow",
 #       "Action": [
 #         "eks:DescribeCluster",
-#         "eks:ListClusters",
-#         "eks:AccessKubernetesApi",
-#         "eks:ListFargateProfiles",
-#         "eks:DescribeNodegroup",
-#         "eks:ListNodegroups",
-#         "eks:ListUpdates",
-#         "eks:ListAddons",
-#         "eks:DescribeAddonVersions",
-#         "eks:ListIdentityProviderConfigs",
-#         "iam:ListRoles"
+        # "eks:ListClusters",
+        # "eks:AccessKubernetesApi",
+        # "eks:ListFargateProfiles",
+        # "eks:DescribeNodegroup",
+        # "eks:ListNodegroups",
+        # "eks:ListUpdates",
+        # "eks:ListAddons",
+        # "eks:DescribeAddonVersions",
+        # "eks:ListIdentityProviderConfigs",
+        # "iam:ListRoles"
 #       ],
 #       "Resource": "*"
 #     }
