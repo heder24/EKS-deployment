@@ -184,7 +184,8 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: false
+        destroy: true
+        
 
 
       if: ${{ env.destroy == 'true' }} 
