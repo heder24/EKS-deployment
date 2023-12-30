@@ -321,27 +321,27 @@ module "public_sg" {
 #############################################################
 
 
-# module "acm" {
-#   source  = "app.terraform.io/heder24/acm/aws"
-#   version = "1.0.0"
+module "acm" {
+  source  = "app.terraform.io/heder24/acm/aws"
+  version = "1.0.0"
 
-#   providers = {
-#     aws.acm = aws,
-#     aws.dns = aws
-#   }
+  providers = {
+    aws.acm = aws,
+    aws.dns = aws
+  }
 
-#   domain_name = local.domain_name
-#   zone_id     = local.zone_id
+  domain_name = local.domain_name
+  zone_id     = local.zone_id
 
 
-#   subject_alternative_names = [
-#     "www.${local.domain_name}"
-#   ]
+  subject_alternative_names = [
+    "www.${local.domain_name}"
+  ]
 
-#   tags = {
-#     Name = local.domain_name
-#   }
-# }
+  tags = {
+    Name = local.domain_name
+  }
+}
 ######################################waf#######################################################
 
 # module "waf" {
