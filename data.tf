@@ -48,3 +48,10 @@ output "allocation_id" {
 
 }
 
+data "aws_acm_certificate" "certificate" {
+  domain = "www.hederdevops.com"  # Replace with your domain name
+}
+
+output "certificate_arn" {
+  value = data.aws_acm_certificate.certificate.arn
+}
