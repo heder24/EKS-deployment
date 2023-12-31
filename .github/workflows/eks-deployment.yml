@@ -184,8 +184,8 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: true
-        
+        destroy: false
+
 
 
 
