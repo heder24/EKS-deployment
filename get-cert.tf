@@ -8,7 +8,7 @@ resource "null_resource" "acm_certificate" {
       domain_name="${var.domain_name}"
 
       certificate_arn=$(aws acm list-certificates \
-        --query "CertificateSummaryList[?DomainName=='$domain_name'].CertificateArn" \
+        --query "CertificateSummaryList[?DomainName=='${var.domain_name}'].CertificateArn" \
         --output text)
 
       echo "ACM Certificate ARN: $certificate_arn"
@@ -26,4 +26,3 @@ variable "domain_name" {
   type        = string
   default     = "www.hederdevops.com"
 }
-
