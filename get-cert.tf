@@ -5,10 +5,10 @@ resource "null_resource" "acm_certificate" {
 
   provisioner "local-exec" {
     command = <<EOT
-      domain_name="${var.domain_name}"
+      domain_name="${var.domain_name_prod}"
 
       certificate_arn=$(aws acm list-certificates \
-        --query "CertificateSummaryList[?DomainName=='${var.domain_name}'].CertificateArn" \
+        --query "CertificateSummaryList[?DomainName=='${var.domain_name_prod}'].CertificateArn" \
         --output text)
 
       echo "ACM Certificate ARN: $certificate_arn"
@@ -21,7 +21,7 @@ output "certificate_arn" {
   value = null_resource.acm_certificate.triggers["domain_name"]  # Correct the triggers access
 }
 
-variable "domain_name" {
+variable "domain_name_prod" {
   description = "Domain name for ACM certificate"
   type        = string
   default     = "www.hederdevops.com"
