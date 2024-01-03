@@ -1,8 +1,6 @@
-
-
 resource "null_resource" "acm_certificate" {
   triggers = {
-    domain_name = "www.hederdevops.com"
+    domain_name = var.domain_name  # Use the variable here
   }
 
   provisioner "local-exec" {
@@ -20,7 +18,7 @@ resource "null_resource" "acm_certificate" {
 }
 
 output "certificate_arn" {
-  value = null_resource.acm_certificate.triggers["certificate_arn"]
+  value = null_resource.acm_certificate.triggers["domain_name"]  # Correct the triggers access
 }
 
 variable "domain_name" {
@@ -28,3 +26,4 @@ variable "domain_name" {
   type        = string
   default     = "www.hederdevops.com"
 }
+
