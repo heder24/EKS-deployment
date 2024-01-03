@@ -9,10 +9,6 @@ resource "helm_release" "prometheus" {
   chart      = "prometheus"
    namespace = "monitoring"
 
-  set {
-    name  = "server.service.type"
-    value = "LoadBalancer"
-  }
 
   set {
     name  = "server.ingress.enabled"
