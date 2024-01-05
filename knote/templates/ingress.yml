@@ -36,5 +36,14 @@ spec:
                 name: knote
                 port:
                   number: 80
-
+    - host: hederdevops.com
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: knote
+                port:
+                  number: 80
                   
