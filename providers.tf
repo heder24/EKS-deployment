@@ -23,14 +23,14 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.11.0"
     }
-  grafana = {
-  source = "grafana/grafana"
-  url      = "http://grafana:3000"  
-  admin_user =  var.grafana_username                   
-  admin_password = var.grafana_password
+    grafana = {
+      source = "grafana/grafana"
+      version = "2.8.0"
+    }
+    
 }
 
-  }
+  
 }
 
 # Configure the AWS Provider
@@ -51,3 +51,4 @@ provider "helm" {
     }
   }
 }
+
