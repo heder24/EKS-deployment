@@ -25,7 +25,7 @@ terraform {
     }
   grafana = {
   source = "grafana/grafana"
-  url      = "http://grafana-server:3000"  #
+  url      = "http://grafana:3000"  
   admin_user =  var.grafana_username                   
   admin_password = var.grafana_password
 }
