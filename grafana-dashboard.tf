@@ -1,16 +1,7 @@
 
-provider "grafana" {
-  source  = "grafana/grafana"
-  url      = "http://grafana-server:3000"  #
-  admin_user =  var.grafana_username                   
-  admin_password = var.grafana_password
-}
-
 resource "grafana_dashboard" "cluster_monitoring" {
-  name          = "Cluster Monitoring"
-  folder        = "Monitoring" 
 
-  json = <<EOF
+  config_json = <<EOF
 {
   "editable": true,
   "panels": [
