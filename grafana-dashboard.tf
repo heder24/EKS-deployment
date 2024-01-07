@@ -25,7 +25,7 @@ resource "grafana_dashboard" "cluster_monitoring" {
         }
       ]
     }
-    // Add more panels as needed
+   
   ],
   "time": {
     "from": "now-6h",
