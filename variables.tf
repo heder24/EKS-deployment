@@ -111,3 +111,16 @@ variable "aws_secret_key" {
   sensitive   = true
   default     = "Jtz0K+k2Ti+li/L/T8sugkF6vW5q7M2G9xXgkOtC"
 }
+
+#grafana creds
+variable "grafana_username" {
+  description = "Grafana admin username"
+  type        = string
+  sensitive   = true
+}
+
+variable "grafana_password" {
+  description = "Grafana admin password"
+  type        = string
+  sensitive   = true
+}

@@ -10,6 +10,15 @@ resource "helm_release" "grafana" {
   ]
 
   set {
+    name  = "adminUser"
+    value = var.grafana_username
+  }
+
+  set {
+    name  = "adminPassword"
+    value = var.grafana_password
+  }
+  set {
     name  = "ingress.enabled"
     value = "false"
   }
