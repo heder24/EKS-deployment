@@ -23,6 +23,13 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.11.0"
     }
+  grafana = {
+  source = "grafana/grafana"
+  url      = "http://grafana-server:3000"  #
+  admin_user =  var.grafana_username                   
+  admin_password = var.grafana_password
+}
+
   }
 }
 
