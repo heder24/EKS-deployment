@@ -117,10 +117,12 @@ variable "grafana_username" {
   description = "Grafana admin username"
   type        = string
   sensitive   = true
+  default = {}
 }
 
 variable "grafana_password" {
   description = "Grafana admin password"
   type        = string
   sensitive   = true
+  default = {}
 }
