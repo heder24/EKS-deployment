@@ -10,6 +10,9 @@ resource "helm_release" "knote" {
     value = "regcred"
   }
 
+  values = [
+    file("values.yaml")
+  ]
   depends_on = [
     module.eks.eks_managed_node_groups,
     kubernetes_secret.regcred
