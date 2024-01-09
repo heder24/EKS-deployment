@@ -11,8 +11,8 @@ resource "helm_release" "knote" {
   }
 
   values = [
-    # file("values.yaml")
-    "/home/cyber/repos/EKS-deployment/knote-values.yml",
+    file("knote-values.yaml"),
+    # "/home/cyber/repos/EKS-deployment/knote-values.yml",
   ]
   depends_on = [
     module.eks.eks_managed_node_groups,
