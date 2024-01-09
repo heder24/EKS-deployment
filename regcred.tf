@@ -21,14 +21,17 @@ resource "null_resource" "reg_secret" {
 variable "dockerhub_username" {
   description = "DockerHub username"
   type        = string
+  default = ""
 }
 
 variable "dockerhub_access_token" {
   description = "DockerHub access token"
   type        = string
+  default = ""
 }
 
 variable "dockerhub_email" {
   description = "DockerHub email"
   type        = string
+  default = ""
 }
