@@ -1,6 +1,6 @@
-provider "kubectl" {
-  config_path = "~/.kube/config"  # Replace with the path to your kubeconfig file
-}
+# provider "kubectl" {
+#   config_path = "~/.kube/config"  # Replace with the path to your kubeconfig file
+# }
 # resource "null_resource" "reg_secret" {
 #   triggers = {
 #     # This will re-run the provisioner whenever the specified values change
@@ -53,7 +53,7 @@ resource "kubernetes_secret" "regcred" {
         {
           "auths": {
             "https://index.docker.io/v1/": {
-              "auth": "${base64encode("${var.dockerhub_username}:${var.dockerhub_access_token}")}"
+                "auth": "${base64encode("${var.dockerhub_username}:${var.dockerhub_password}:${var.dockerhub_email}")}"
             }
           }
         }
@@ -82,3 +82,8 @@ variable "dockerhub_email" {
   type        = string
   default = ""
 }
+variable "dockerhub_password" {
+  type        = string
+  default = ""
+}
+
