@@ -7,7 +7,7 @@ resource "helm_release" "knote" {
 
    set {
     name  = "imagePullSecrets"
-    value = "regcred"
+    value = jsonencode(["regcred"])
   }
 
   values = [
