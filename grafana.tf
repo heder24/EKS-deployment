@@ -5,6 +5,10 @@ resource "helm_release" "grafana" {
   chart      = "grafana"
   namespace = "monitoring"
 
+  values = [
+    file("grafana-values.yaml"),  # Create this file with Grafana configuration
+  ]
+
   set {
     name  = "adminUser"
     value = var.grafana_username
