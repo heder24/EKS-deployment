@@ -3,7 +3,7 @@ terraform {
     organization = "heder24"
 
     workspaces {
-      name = "knn00TE"
+      name = "knnn000TE"
     }
   }
 }
@@ -26,6 +26,10 @@ terraform {
     grafana = {
       source = "grafana/grafana"
       version = "2.8.0"
+    }
+    kubectl = {
+      source = "gavinbunney/kubectl"
+      version = "1.14.0"
     }
     
 }
