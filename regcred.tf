@@ -1,4 +1,6 @@
-
+provider "kubectl" {
+  config_path = "~/.kube/config"  # Replace with the path to your kubeconfig file
+}
 resource "null_resource" "reg_secret" {
   triggers = {
     # This will re-run the provisioner whenever the specified values change
