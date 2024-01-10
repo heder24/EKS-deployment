@@ -63,29 +63,29 @@
 # }
 
 
-resource "kubernetes_secret" "regcred" {
-  metadata {
-    name      = "regcred"
-    namespace = "knote-app"  # Replace with the desired namespace
-  }
+# resource "kubernetes_secret" "regcred" {
+#   metadata {
+#     name      = "regcred"
+#     namespace = "knote-app"  # Replace with the desired namespace
+#   }
 
-  data = {
-    dockerconfigjson = base64encode(
-      jsonencode(
-        {
-          auths = {
-            "DOCKER_REGISTRY_SERVER" = {
-              username = "DOCKER_USER"
-              password = "DOCKER_PASSWORD"
-              email    = "DOCKER_EMAIL"
-              auth     = base64encode("${var.docker_user}:${var.docker_password}")
-            }
-          }
-        }
-      )
-    )
-  }
-}
+#   data = {
+#     dockerconfigjson = base64encode(
+#       jsonencode(
+#         {
+#           auths = {
+#             "DOCKER_REGISTRY_SERVER" = {
+#               username = "DOCKER_USER"
+#               password = "DOCKER_PASSWORD"
+#               email    = "DOCKER_EMAIL"
+#               auth     = base64encode("${var.docker_user}:${var.docker_password}")
+#             }
+#           }
+#         }
+#       )
+#     )
+#   }
+# }
 
 
 
