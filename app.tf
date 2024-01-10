@@ -16,7 +16,7 @@ resource "helm_release" "knote" {
   # ]
   depends_on = [
     module.eks.eks_managed_node_groups,
-    kubernetes_secret.regcred
+    # kubernetes_secret.regcred
   ] 
 }
 
