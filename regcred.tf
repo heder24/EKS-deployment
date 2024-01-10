@@ -42,30 +42,56 @@
 
 
 
+# resource "kubernetes_secret" "regcred" {
+#   metadata {
+#     name = "regcred"
+#   }
+
+#   data = {
+#     dockerconfigjson = base64encode(
+#       <<EOT
+#         {
+#           "auths": {
+#             "https://index.docker.io/v1/": {
+#                 "auth": "${base64encode("${var.dockerhub_username}:${var.dockerhub_password}:${var.dockerhub_email}")}"
+#             }
+#           }
+#         }
+#       EOT
+#     )
+#   }
+# }
+
+
 resource "kubernetes_secret" "regcred" {
   metadata {
-    name = "regcred"
+    name      = "regcred"
+    namespace = "knote-app"  # Replace with the desired namespace
   }
 
   data = {
     dockerconfigjson = base64encode(
-      <<EOT
+      jsonencode(
         {
-          "auths": {
-            "https://index.docker.io/v1/": {
-                "auth": "${base64encode("${var.dockerhub_username}:${var.dockerhub_password}:${var.dockerhub_email}")}"
+          auths = {
+            "DOCKER_REGISTRY_SERVER" = {
+              username = "DOCKER_USER"
+              password = "DOCKER_PASSWORD"
+              email    = "DOCKER_EMAIL"
+              auth     = base64encode("${var.docker_user}:${var.docker_password}")
             }
           }
         }
-      EOT
+      )
     )
   }
 }
 
 
 
+
 # Variables
-variable "dockerhub_username" {
+variable "docker_user" {
   description = "DockerHub username"
   type        = string
   default = ""
@@ -82,7 +108,7 @@ variable "dockerhub_email" {
   type        = string
   default = ""
 }
-variable "dockerhub_password" {
+variable "docker_password" {
   type        = string
   default = ""
 }
