@@ -5,18 +5,18 @@ resource "helm_release" "knote" {
   namespace        = "knote-app"
   create_namespace = true
 
-   set {
-    name  = "imagePullSecrets"
-    value = jsonencode(["regcred"])
-  }
+  #  set {
+  #   name  = "imagePullSecrets"
+  #   value = jsonencode(["regcred"])
+  # }
 
-  values = [
-    file("knote-values.yaml"),
-    # "/home/cyber/repos/EKS-deployment/knote-values.yml",
-  ]
+  # values = [
+  #   file("knote-values.yaml"),
+  #   # "/home/cyber/repos/EKS-deployment/knote-values.yml",
+  # ]
   depends_on = [
     module.eks.eks_managed_node_groups,
-    kubernetes_secret.regcred
+    # kubernetes_secret.regcred
   ] 
 }
 
