@@ -29,7 +29,6 @@ spec:
       containers:
         - name: knote
           image: heder24/my-app:knote
-          imagePullPolicy: Always
           ports:
             - containerPort: 3000
       imagePullSecrets:
