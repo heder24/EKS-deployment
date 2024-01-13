@@ -106,23 +106,6 @@ module "eks" {
   }
 }
 
-
-#   aws_auth_users = [
-#     {
-#       userarn  = "arn:aws:iam::66666666666:user/user1"
-#       username = "user1"
-#       groups   = ["system:masters"]
-#     },
-#     {
-#       userarn  = "arn:aws:iam::66666666666:user/user2"
-#       username = "user2"
-#       groups   = ["system:masters"]
-#     },
-#   ]
-
-# }
-
-
 ###############################################################################
 # VPC Module
 ################################################################################
