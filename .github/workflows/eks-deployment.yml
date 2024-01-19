@@ -154,16 +154,16 @@ jobs:
         dockerhub-password: ${{ secrets.DOCKER_HUB_TOKEN }}
         command: quickview,cves
         only-severities: critical,high
-        # image: myapp
-        sarif-file: sarif.output.json
+        # image: //myapp
+        sarif-file: scout-report.output.json
         summary: true
       
-    - name: Upload SARIF result
+    - name: Upload SCAN result
       id: upload-sarif
-      if: ${{ github.event_name != 'pull_request_target' }}
+      if: always ()
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: sarif.output.json
+        sarif_file: scout-report.output.json
   
     # - name: Run Trivy vulnerability scanner in IaC mode
     #   uses: aquasecurity/trivy-action@master
@@ -203,7 +203,7 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: true
+        destroy: false
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref =true= 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform destroy -auto-approve -input=true
