@@ -160,7 +160,7 @@ jobs:
       
     - name: Upload SCAN result
       id: upload-sarif
-      if: always ()
+      if: always()
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: scout-report.output.json
