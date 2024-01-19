@@ -154,7 +154,7 @@ jobs:
         dockerhub-password: ${{ secrets.DOCKER_HUB_TOKEN }}
         command: quickview,cves
         only-severities: critical,high
-        image: heder24/myapp
+        # image: myapp
         sarif-file: sarif.output.json
         summary: true
       
