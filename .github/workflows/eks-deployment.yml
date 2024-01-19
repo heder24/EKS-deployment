@@ -145,6 +145,25 @@ jobs:
       with:
         sarif_file: snyk.scan
 
+    - name: Analyze for critical and high CVEs
+      id: docker-scout
+      # if: ${{ github.event_name != 'pull_request_target' }}
+      uses: docker/scout-action@v1
+      with:
+        dockerhub-user: ${{secrets.DOCKER_HUB_USER}}
+        dockerhub-password: ${{secrets.DOCKER_HUB_TOKEN}}
+        command: quickview,cves
+        only-severities: critical,high
+        image: heder24/myapp
+        sarif-file: sarif.output.json
+        summary: true
+      
+    - name: Upload SARIF result
+      id: upload-sarif
+      if: ${{ github.event_name != 'pull_request_target' }}
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: sarif.output.json
   
     # - name: Run Trivy vulnerability scanner in IaC mode
     #   uses: aquasecurity/trivy-action@master
