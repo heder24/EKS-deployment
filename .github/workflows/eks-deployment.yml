@@ -150,8 +150,8 @@ jobs:
       # if: ${{ github.event_name != 'pull_request_target' }}
       uses: docker/scout-action@v1
       with:
-        dockerhub-user: ${{secrets.DOCKER_HUB_USER}}
-        dockerhub-password: ${{secrets.DOCKER_HUB_TOKEN}}
+        dockerhub-user: ${{ secrets.DOCKER_HUB_USER }}
+        dockerhub-password: ${{ secrets.DOCKER_HUB_TOKEN }}
         command: quickview,cves
         only-severities: critical,high
         image: heder24/myapp
