@@ -138,7 +138,8 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --sarif-file-output=snyk.scan
+        args: --sarif-file-output=snyk.scan 
+              --severity-threshold=high, critical
         sarif: false
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
@@ -162,7 +163,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: docker scout findings
-        sarif_file: scout-report.sarif
+        path: scout-report.sarif
   
     # - name: Run Trivy vulnerability scanner in IaC mode
     #   uses: aquasecurity/trivy-action@master
