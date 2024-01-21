@@ -147,7 +147,6 @@ jobs:
 
     - name: Analyze for critical and high CVEs
       id: docker-scout
-      # if: ${{ github.event_name != 'pull_request_target' }}
       uses: docker/scout-action@v1
       with:
         dockerhub-user: ${{ secrets.DOCKER_HUB_USER }}
@@ -155,15 +154,15 @@ jobs:
         command: quickview,cves
         only-severities: critical,high
         # image: //myapp
-        sarif-file: scout-report.output.json
-        summary: true
+        sarif-file: scout-report.sarif
       
     - name: Upload SCAN result
       id: upload-sarif
       if: always()
-      uses: github/codeql-action/upload-sarif@v2
+      uses: actions/upload-artifact@v4
       with:
-        sarif_file: scout-report.output.json
+        name: docker scout findings
+        sarif_file: scout-report.sarif
   
     # - name: Run Trivy vulnerability scanner in IaC mode
     #   uses: aquasecurity/trivy-action@master
@@ -203,7 +202,7 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: true
+        destroy: false
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref =true= 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform destroy -auto-approve -input=true
