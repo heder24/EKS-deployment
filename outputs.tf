@@ -770,3 +770,8 @@ output "vpc_flow_log_cloudwatch_iam_role_arn" {
 
 
 # }
+
+# output "web_acl_id" {
+#   description = "The ARN of the WAF WebACL."
+#   value       = module.waf.arn
+# }
