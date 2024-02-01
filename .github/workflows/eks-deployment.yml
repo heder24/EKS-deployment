@@ -19,7 +19,6 @@ permissions: write-all
   # issues: write
 
 jobs:
-    name: 'Terraform EKS deployment'
     runs-on: ubuntu-latest
     environment: production
 
