@@ -328,12 +328,12 @@ module "public_sg" {
 ######################################waf#######################################################
 
 # module "waf" {
-#   source = "/home/cyber/repos/eks-project/modules/waf"
-#   name   = var.waf-name
+#   source = "./waf"
+#   name   =  prod-waf #var.waf-name
 
 #   scope         = "REGIONAL"
-#   associate_alb = true
-#   alb_arn       =  module.alb.lb_arn
+#   # associate_alb = true
+#   # alb_arn       =  module.alb.lb_arn
 #   managed_rules = [
 #     { "name" : "AWSManagedRulesAmazonIpReputationList", "override_action" : "none", "priority" : 1, "vendor_name" : "AWS", "rule_action_override" : [] },
 #     { "name" : "AWSManagedRulesCommonRuleSet", "override_action" : "none", "priority" : 2, "vendor_name" : "AWS", "rule_action_override" : [{ "name" = "SizeRestrictions_BODY", "action_to_use" = "allow" }] },
@@ -348,21 +348,4 @@ module "public_sg" {
 #   name = "aws-waf-logs-prod"
 # }
 
-# # resource "aws_wafv2_web_acl_logging_configuration" "prod-logs" {
-# #   log_destination_configs = [aws_cloudwatch_log_group.prod-logs.arn]
-# #   resource_arn            = aws_wafv2_web_acl.example.arn
-# # }
 
-
-# #################################################################
-# # HELM
-# #################################################################
-
-#  resource "helm_release" "knote" {
-#   name       = "knote"
-
-#   repository = "/home/cyber/repos/eks-project/helm/knote"
-#   chart      = "knote"
-
-
-# }

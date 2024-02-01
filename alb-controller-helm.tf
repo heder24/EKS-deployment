@@ -10,6 +10,17 @@ resource "helm_release" "aws-load-balancer-controller" {
   }
 
   set {
+    name  = "enable-waf"
+    value = true
+  }
+
+  set {
+    name  = "enable-wafv2"
+    value = true
+  }
+
+
+  set {
     name  = "serviceAccount.name"
     value = "aws-load-balancer-controller"
   }
