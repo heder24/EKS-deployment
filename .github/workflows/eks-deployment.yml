@@ -12,24 +12,24 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    permissions:
-      write-all
-      # contents: read
-      # issues: write
+
+permissions: write-all
+  # contents: read
+  # issues: write
 
 jobs:
   terraform:
-    name: 'KNOTE'
+    name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
 
-  # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-  defaults:
-    run:
-      shell: bash
-      working-directory: "./"
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: "./"
 
-  steps:
+    steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
