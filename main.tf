@@ -55,28 +55,23 @@ module "eks" {
 
   # aws-auth configmap
   manage_aws_auth_configmap = true
-  # aws_auth_roles = [
-  #   {
-  #     rolearn  = module.eks_admins_iam_role.iam_role_arn
-  #     username = module.eks_admins_iam_role.iam_role_name
-  #     groups   = ["system:masters"]
-  #   },
-  # ]
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks_admins_iam_role.iam_role_arn
+      username = module.eks_admins_iam_role.iam_role_name
+      groups   = ["system:masters"]
+    },
+  ]
 
-  # aws_auth_users = [
-  #   {
-  #     userarn  = var.userarn
-  #     username = var.username
-  #     groups   = ["system:masters"]
-  #   }
-  # ]
-  map_users = [
-   {
+  aws_auth_users = [
+    {
       userarn  = var.userarn
       username = var.username
       groups   = ["system:masters"]
     }
-    ]
+  ]
+
+  aws_auth_accounts = [data.aws_caller_identity.current.account_id]
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
