@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: knote
   # annotations:
-  #   external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
+    # external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
 spec:
   selector:
     app: knote
