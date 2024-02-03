@@ -13,7 +13,7 @@ provider "kubernetes" {
 
 }
 
-data "aws_caller_identity" "current" {}
+# data "aws_caller_identity" "current" {}
 
 
 ################################################################################
@@ -58,7 +58,7 @@ module "eks" {
   aws_auth_roles = [
     {
       rolearn  = module.eks_admins_iam_role.iam_role_arn
-      username = module.eks_admins_iam_role.iam_role_name
+      username = var.username
       groups   = ["system:masters"]
     },
   ]
@@ -71,16 +71,12 @@ module "eks" {
     }
   ]
 
-  aws_auth_accounts = [data.aws_caller_identity.current.account_id]
-
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"
     instance_types = ["t3.large"]
 
     attach_cluster_primary_security_group = true
-
-
     # Needed by the aws-ebs-csi-driver 
     iam_role_additional_policies = {
       AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
@@ -96,7 +92,7 @@ module "eks" {
     prod = {
       min_size     = 1
       max_size     = 10
-      desired_size = 2
+      desired_size = 1
 
       instance_types = ["t3.large"]
       capacity_type  = "ON_DEMAND"
