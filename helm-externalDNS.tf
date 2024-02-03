@@ -31,7 +31,7 @@ resource "helm_release" "external-dns" {
 
   set {
     name  = "domainFilter"
-    value = "hederdevops.com" # Adjust the domain filter as needed
+    value = "www.hederdevops.com" # Adjust the domain filter as needed
   }
 
   set {
