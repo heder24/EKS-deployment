@@ -9,8 +9,8 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-2:312029113425:certificate/3c5ecd0f-ff3a-45d3-9237-abb9441ac0a8
-    # external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
-    alb.ingress.kubernetes.io/wafv2-acl-arn: arn:aws:wafv2:us-east-2:312029113425:regional/webacl/prod/390ae17c-8ba6-4ab7-9877-960d912d672e
+    external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
+    alb.ingress.kubernetes.io/wafv2-acl-arn: arn:aws:wafv2:us-east-2:312029113425:regional/webacl/knote-waf/2d1b0963-f4f0-48e6-a0f0-1c622e431cf9
     alb.ingress.kubernetes.io/actions.ssl-redirect: >-
         {
             "Type": "redirect",
