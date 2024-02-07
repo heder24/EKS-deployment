@@ -35,10 +35,19 @@ output "csi-store-driver-sa" {
 }
 
 
-resource "aws_eks_service_account" "csi-store-driver-sa" {
-  cluster_name   = "prod"
-  namespace      = "kube-system"
-  name           = "csi-store-driver-sa"
-  role_arn       = aws_iam_role.secret_store_CSI_driver_role.arn
-  depends_on     = [aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy]
+resource "kubernetes_service_account" "csi_sa_service_account" {
+  metadata {
+    name      = "csi-store-driver-sa"
+    namespace = "kube-system"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.secret_store_CSI_driver_role.arn
+    }
+  
+  }
+  automount_service_account_token = true
+
+  depends_on = [
+    aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy
+  ]
+
 }
