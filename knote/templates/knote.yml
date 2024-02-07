@@ -41,7 +41,7 @@ spec:
           ports:
             - containerPort: 3000
           volumeMounts:
-        - name: secrets-store-inline
+          - name: secrets-store-inline
             mountPath: "/mnt/secrets-store"
             readOnly: true
       # imagePullSecrets:
