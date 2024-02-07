@@ -2,8 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: knote
-  # annotations:
+  annotations:
   #   external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
+
 spec:
   selector:
     app: knote
@@ -26,11 +27,23 @@ spec:
       labels:
         app: knote
     spec:
+      serviceAccountName: csi-store-driver-sa
+      volumes:
+      - name: secrets-store-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "aws-secret-credentials"
       containers:
         - name: knote
           image: heder24/my-app:knote
           ports:
             - containerPort: 3000
+          volumeMounts:
+        - name: secrets-store-inline
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
       # imagePullSecrets:
       #   - name: regcred
 
@@ -44,5 +57,6 @@ spec:
             - name: MINIO_HOST
               value: minio
           imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regcred
+      # imagePullSecrets:
+      #   - name: regcred
+     
