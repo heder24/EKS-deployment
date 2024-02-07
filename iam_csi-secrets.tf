@@ -34,9 +34,11 @@ output "csi-store-driver-sa" {
   value = aws_iam_role.secret_store_CSI_driver_role.arn
 }
 
-resource "kubernetes_service_account" "csi_store_driver_sa" {
-  metadata {
-    name      = "csi-store-driver-sa"
-    namespace = "kube-system"  # You may adjust the namespace as needed
-  }
+
+resource "aws_eks_service_account" "csi-store-driver-sa" {
+  cluster_name   = "prod"
+  namespace      = "kube-system"
+  name           = "csi-store-driver-sa"
+  role_arn       = aws_iam_role.secret_store_CSI_driver_role.arn
+  depends_on     = [aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy]
 }
