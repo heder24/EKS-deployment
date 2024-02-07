@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "csi-store-driver-sa_role_assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
-      values   = ["system:serviceaccount:knote-app:csi-store-driver-sa"]
+      values   = ["system:serviceaccount:kube-system:csi-store-driver-sa"]
     }
 
     principals {
@@ -41,14 +41,18 @@ module "secret_store_CSI_driver_role" {
 
   role_name = "csi-store-driver-sa"
   allow_self_assume_role = true
-  eks_cluster_name = local.cluster_name
-  service_account  = "csi-store-driver-sa"
-  namespace        = "kube-system"
+  
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:csi-store-driver-sa"]
+    }
+
 
   role_policy_arns = [aws_iam_policy.secret_store_CSI_driver_policy.arn]
   
 }
-
+}
 output "csi-store-driver-sa" {
   value = module.secret_store_CSI_driver_role.iam_role_arn  
   }
