@@ -1,20 +1,20 @@
-data "aws_iam_policy_document" "csi-store-driver-sa_role_assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
+# data "aws_iam_policy_document" "csi-store-driver-sa_role_assume_role_policy" {
+#   statement {
+#     actions = ["sts:AssumeRoleWithWebIdentity"]
+#     effect  = "Allow"
 
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
-      values   = ["system:serviceaccount:kube-system:csi-store-driver-sa"]
-    }
+#     condition {
+#       test     = "StringEquals"
+#       variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
+#       values   = ["system:serviceaccount:kube-system:csi-store-driver-sa"]
+#     }
 
-    principals {
-      identifiers = [module.eks.oidc_provider_arn]
-      type        = "Federated"
-    }
-  }
-}
+#     principals {
+#       identifiers = [module.eks.oidc_provider_arn]
+#       type        = "Federated"
+#     }
+#   }
+# }
 
 # resource "aws_iam_role" "secret_store_CSI_driver_role" {
 #   assume_role_policy = data.aws_iam_policy_document.external_dns_role_assume_role_policy.json
