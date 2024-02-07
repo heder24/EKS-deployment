@@ -56,3 +56,4 @@ module "secret_store_CSI_driver_role" {
 output "csi-store-driver-sa" {
   value = module.secret_store_CSI_driver_role.iam_role_arn  
   }
+
