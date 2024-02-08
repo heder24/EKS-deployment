@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "csi-store-driver-sa_role_assume_role_policy" {
     condition {
       test     = "StringEquals"
       variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
-      values   = ["system:serviceaccount:kube-system:csi-store-driver-sa"]
+      values   = ["system:serviceaccount:knote-app:csi-store-driver-sa"]
     }
 
     principals {
@@ -38,7 +38,7 @@ output "csi-store-driver-sa" {
 resource "kubernetes_service_account" "csi_sa_service_account" {
   metadata {
     name      = "csi-store-driver-sa"
-    namespace = "kube-system"
+    namespace = "knote-app"
     annotations = {
       "eks.amazonaws.com/role-arn" = aws_iam_role.secret_store_CSI_driver_role.arn
     }
