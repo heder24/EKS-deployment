@@ -47,7 +47,9 @@ resource "kubernetes_service_account" "csi_sa_service_account" {
   automount_service_account_token = true
 
   depends_on = [
-    aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy
+    aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy,
+    aws_iam_role.secret_store_CSI_driver_role.arn,
+    helm_release.knote
   ]
 
 }
