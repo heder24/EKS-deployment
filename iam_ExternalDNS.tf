@@ -22,7 +22,7 @@ resource "aws_iam_role" "external_dns_role" {
 }
 
 resource "aws_iam_policy" "external_dns_policy" {
-  name        = "ExternalDNSUpdatePolicy"
+  name        = "ExternalDNSPolicy"
   description = "Policy for allowing external DNS updates"
 
   policy = <<EOF
