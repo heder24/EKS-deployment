@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "csi-store-driver-sa_role_assume_role_policy" {
 }
 
 resource "aws_iam_role" "secret_store_CSI_driver_role" {
-  assume_role_policy = data.aws_iam_policy_document.external_dns_role_assume_role_policy.json
+  assume_role_policy = data.aws_iam_policy_document.csi-store-driver-sa_role_assume_role_policy.json
   name               = "csi-store-driver-sa"
 }
 
