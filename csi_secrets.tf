@@ -6,13 +6,13 @@ resource "helm_release" "csi" {
   chart      = "csi-secrets-store-provider-aws"
   namespace = "kube-system"  
 #   version = "1.4.0" #https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases
-  set {
-    name  = "grpcSupportedProviders"
-    value = "aws"
-  }
+#   set {
+#     name  = "grpcSupportedProviders"
+#     value = "aws"
+#   }
 
-  set {
-    name  = "syncSecret.enabled"
-    value = "true"
-  }
+#   set {
+#     name  = "syncSecret.enabled"
+#     value = "true"
+#   }
 }
