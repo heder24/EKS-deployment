@@ -40,10 +40,10 @@ spec:
           image: heder24/my-app:knote
           ports:
             - containerPort: 3000
-          # volumeMounts:
-          # - name: secrets-store-inline
-          #   mountPath: "/mnt/secrets-store"
-          #   readOnly: true
+          volumeMounts:
+          - name: secrets-store-inline
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
       # imagePullSecrets:
       #   - name: regcred
 
@@ -59,7 +59,7 @@ spec:
           imagePullPolicy: Always
       # imagePullSecrets:
       #   - name: regcred
-          volumeMounts:
-          - name: secrets-store-inline
-            mountPath: "/mnt/secrets-store"
-            readOnly: true            
+          # volumeMounts:
+          # - name: secrets-store-inline
+          #   mountPath: "/mnt/secrets-store"
+          #   readOnly: true            
