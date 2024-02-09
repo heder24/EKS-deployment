@@ -12,7 +12,8 @@ resource "helm_release" "knote" {
   # create_namespace = true
   depends_on = [
     module.eks.eks_managed_node_groups,
-    kubernetes_namespace.knote_app
+    kubernetes_namespace.knote_app,
+    helm_release.csi
     
   ] 
 }
