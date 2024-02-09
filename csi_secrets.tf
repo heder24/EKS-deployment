@@ -3,6 +3,7 @@ resource "helm_release" "csi" {
   chart      = "secrets-store-csi-driver"
   repository = "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
   namespace = "kube-system"  
+  version = "1.4.0" #https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases
   set {
     name  = "grpcSupportedProviders"
     value = "aws"
