@@ -1,17 +1,17 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: knote
-#   # annotations:
-#   #   external-dns.alpha.kubernetes.io/hostname: rn:aws:iam::312029113425:role/csi-store-driver-sa
+apiVersion: v1
+kind: Service
+metadata:
+  name: knote
+  # annotations:
+  #   external-dns.alpha.kubernetes.io/hostname: rn:aws:iam::312029113425:role/knote
 
-# spec:
-#   selector:
-#     app: knote
-#   ports:
-#     - port: 80
-#       targetPort: 3000
-#   type: LoadBalancer #NodePort
+spec:
+  selector:
+    app: knote
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer #NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment

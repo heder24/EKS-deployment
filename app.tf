@@ -14,8 +14,8 @@ resource "helm_release" "knote" {
     module.eks.eks_managed_node_groups,
     kubernetes_namespace.knote_app,
     helm_release.csi,
-    # kubernetes_service_account.csi_sa_service_account  
-    kubernetes_service.knote_service 
+    kubernetes_service_account.csi_sa_service_account  
+    
   ] 
 }
 
