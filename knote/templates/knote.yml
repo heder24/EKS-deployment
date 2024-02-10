@@ -1,7 +1,7 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: knote
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: knote
   # annotations:
   #   external-dns.alpha.kubernetes.io/hostname: www.hederdevops.com
 
@@ -40,10 +40,10 @@ spec:
           image: heder24/my-app:knote
           ports:
             - containerPort: 3000
-          volumeMounts:
-          - name: secrets-store-inline
-            mountPath: "/mnt/secrets-store"
-            readOnly: true
+          # volumeMounts:
+          # - name: secrets-store-inline
+          #   mountPath: "/mnt/secrets-store"
+          #   readOnly: true
       # imagePullSecrets:
       #   - name: regcred
 
