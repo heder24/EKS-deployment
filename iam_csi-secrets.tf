@@ -35,23 +35,23 @@ output "knote" {
 }
 
 
-# resource "kubernetes_service_account" "csi_sa_service_account" {
-#   metadata {
-#     name      = "knote"
-#     namespace = "knote-app"
-#     annotations = {
-#       "eks.amazonaws.com/role-arn" = aws_iam_role.secret_store_CSI_driver_role.arn
-#     }
+resource "kubernetes_service_account" "csi_sa_service_account" {
+  metadata {
+    name      = "knote"
+    namespace = "knote-app"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.secret_store_CSI_driver_role.arn
+    }
   
-#   }
-#   automount_service_account_token = true
+  }
+  automount_service_account_token = true
 
-#   depends_on = [
-#     aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy,
-#     aws_iam_role.secret_store_CSI_driver_role,
-#     kubernetes_namespace.knote_app
+  depends_on = [
+    aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy,
+    aws_iam_role.secret_store_CSI_driver_role,
+    kubernetes_namespace.knote_app
     
-#   ]
-# }
+  ]
+}
 ########################################################
 
