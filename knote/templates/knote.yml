@@ -28,8 +28,6 @@ spec:
         app: knote
     spec:
       serviceAccountName: csi-store-driver-sa
-      volumes:
-      - name: secrets-store-inline
         csi:
           driver: secrets-store.csi.k8s.io
           readOnly: true
@@ -59,7 +57,10 @@ spec:
           imagePullPolicy: Always
       # imagePullSecrets:
       #   - name: regcred
-          # volumeMounts:
-          # - name: secrets-store-inline
-          #   mountPath: "/mnt/secrets-store"
-          #   readOnly: true            
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "aws-secret-credentials"      
