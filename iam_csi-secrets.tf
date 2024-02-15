@@ -49,7 +49,7 @@ resource "kubernetes_service_account" "csi_sa_service_account" {
   depends_on = [
     aws_iam_role_policy_attachment.iam_secret_store_CSI_driver_attach_policy,
     aws_iam_role.secret_store_CSI_driver_role,
-    kubernetes_namespace.kubernetes_namespace.knote_app
+    kubernetes_namespace.knote_app
     
   ]
 }
