@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "secret_store_CSI_driver_role_assume_role_policy"
     condition {
       test     = "StringEquals"
       variable = "${replace(module.eks.oidc_provider, "https://", "")}:sub"
-      values   = ["system:serviceaccount:knote-app:secret_store_CSI_driver"]
+      values   = ["system:serviceaccount:knote-app:csi-store-driver-sa"]
     }
 
     principals {
