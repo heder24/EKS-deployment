@@ -16,3 +16,12 @@ resource "helm_release" "csi" {
     value = "true"
   }
 }
+
+
+#AWS Secrets & Configuration Provider (ASCP)
+resource "null_resource" "aws-provider-installer" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml"
+  }
+  depends_on = [helm_release.csi]
+}
