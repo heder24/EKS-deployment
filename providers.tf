@@ -26,16 +26,13 @@ terraform {
     grafana = {
       source = "grafana/grafana"
       version = "2.8.0"
-    }    
-}
-  required_providers {
-    kubectl = {
+    }
+        kubectl = {
       source  = "gavinbunney/kubectl"
       version = ">= 1.7.0"
     }
-  }
-
-  
+      
+}  
 }
 
 # Configure the AWS Provider
