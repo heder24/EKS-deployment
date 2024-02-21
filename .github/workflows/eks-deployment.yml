@@ -34,6 +34,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    #Install helm
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'latest'
+
+    #installl kubeseal
+    - name: Install kubeseal
+      run: |
+        curl -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.15.0/kubeseal-linux-amd64 -o kubeseal
+        chmod +x kubeseal
+        sudo mv kubeseal /usr/local/bin/
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -158,7 +170,7 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: true #WafARN
+        destroy: false #WafARN
 
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref =true= 'refs/heads/"main"' && github.event_name == 'push'
