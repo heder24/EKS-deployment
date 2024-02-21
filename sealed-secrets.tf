@@ -7,4 +7,8 @@ resource "helm_release" "sealed_secrets" {
     name  = "fullnameOverride"
     value = "sealed-secrets-controller"
   }
+    set {
+    name  = "proxy"
+    value = "http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:sealed-secrets-controller:http/proxy/v1/cert.pem"
+  }
 }
