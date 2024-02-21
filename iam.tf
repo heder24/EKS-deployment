@@ -16,10 +16,19 @@ module "allow_eks_access_iam_policy" {
         Effect   = "Allow"
         Resource = "*"
       },
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "iam:PassedToService": "eks.amazonaws.com"
+          }
+        }
+      }
     ]
   })
 }
-
 
 module "eks_admins_iam_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
