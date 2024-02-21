@@ -3,4 +3,10 @@ resource "helm_release" "sealed_secrets_controller" {
   repository = "https://bitnami-labs.github.io/sealed-secrets"
   chart      = "sealed-secrets"
   namespace  = "kube-system"
+  
+  set {
+    name  = "controller.securityContext.fsGroup"
+    value = "1001"
+  }
+
 }
