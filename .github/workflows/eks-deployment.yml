@@ -170,7 +170,7 @@ jobs:
 
     - name: Terraform Destroy
       env:
-        destroy: true #WafARN
+        destroy:  False #WARN
 
       if: ${{ env.destroy == 'true' }} 
       #if: github.ref =true= 'refs/heads/"main"' && github.event_name == 'push'
