@@ -113,7 +113,7 @@ module "kms" {
   enable_default_policy = true
   key_owners            = [data.aws_caller_identity.current.arn, var.userarn]
   key_users             = [var.userarn]
-  
+
 }
 
 ###############################################################################
