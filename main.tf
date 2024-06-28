@@ -103,6 +103,19 @@ module "eks" {
   }
 }
 
+
+module "kms" {
+  source  = "terraform-aws-modules/kms/aws"
+  version = "~> 2.2"
+
+  aliases               = ["eks/${local.name}"]
+  description           = "${local.name} cluster encryption key"
+  enable_default_policy = true
+  key_owners            = [data.aws_caller_identity.current.arn, var.userarn]
+  key_users             = [var.userarn]
+  
+}
+
 ###############################################################################
 # VPC Module
 ################################################################################
@@ -238,7 +251,6 @@ module "public_sg" {
     },
 
   ]
-
 }
 
 
