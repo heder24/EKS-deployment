@@ -1,37 +1,37 @@
 
-# resource "helm_release" "grafana" {
-#   name       = "grafana"
-#   repository = "https://grafana.github.io/helm-charts"
-#   chart      = "grafana"
-#   namespace = "monitoring"
+resource "helm_release" "grafana" {
+  name       = "grafana"
+  repository = "https://grafana.github.io/helm-charts"
+  chart      = "grafana"
+  namespace = "monitoring"
 
-#   values = [
-#     file("grafana-values.yaml"),  # Create this file with Grafana configuration
-#   ]
+  values = [
+    file("grafana-values.yaml"),  # Create this file with Grafana configuration
+  ]
 
-#   set {
-#     name  = "adminUser"
-#     value = var.grafana_username
-#   }
+  set {
+    name  = "adminUser"
+    value = var.grafana_username
+  }
 
-#   set {
-#     name  = "adminPassword"
-#     value = var.grafana_password
-#   }
-#   set {
-#     name  = "ingress.enabled"
-#     value = "false"
-#   }
+  set {
+    name  = "adminPassword"
+    value = var.grafana_password
+  }
+  set {
+    name  = "ingress.enabled"
+    value = "false"
+  }
 
-#   set {
-#     name  = "service.port"
-#     value = 3000
-#   }
+  set {
+    name  = "service.port"
+    value = 3000
+  }
 
 
 
-#   depends_on = [
-#     helm_release.prometheus,
-#   ]
+  depends_on = [
+    helm_release.prometheus,
+  ]
   
-# }
+}
