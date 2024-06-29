@@ -3,7 +3,7 @@ terraform {
     organization = "heder24"
 
     workspaces {
-      name = "knNTTTe-work-space"
+      name = "My-knote-work-space"
     }
   }
 }
