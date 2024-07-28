@@ -76,15 +76,15 @@ module "eks" {
     ami_type       = "AL2_x86_64"
     instance_types = ["t3.large"]
 
-    attach_cluster_primary_security_group = true
-    # Needed by the aws-ebs-csi-driver 
-    iam_role_additional_policies = {
-      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-    }
-  }
+  #   attach_cluster_primary_security_group = true
+  #   # Needed by the aws-ebs-csi-driver 
+  #   iam_role_additional_policies = {
+  #     AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  #   }
+  # }
 
-  node_security_group_tags = {
-    "kubernetes.io/cluster/${local.name}" = null
+  # node_security_group_tags = {
+  #   "kubernetes.io/cluster/${local.name}" = null
   }
 
 
@@ -97,7 +97,7 @@ module "eks" {
       instance_types = ["t3.large"]
       capacity_type  = "ON_DEMAND"
       tags = {
-        ExtraTag = "prod-cluster"
+        ExtraTag = "gitlab-cluster"
       }
     }
   }
